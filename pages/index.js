@@ -1,8 +1,18 @@
 import Head from 'next/head'
-import Link from 'next/link'
+import { useState, useEffect } from 'react'
 
-export default function Home() {
+export default function Home({ user }) {
+  // const [data, setData] = useState([])
+  const [loading, setLoading] = useState(true)
 
+
+
+  // useEffect(() => {
+
+  //   fetch('https://jsonplaceholder.typicode.com/users')
+  //     .then(response => response.json())
+  //     .then(data => { setData(data);  setLoading(false) })
+  // }, [])
 
   return (
     <>
@@ -15,22 +25,32 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main>
-
-        <h1>Home</h1>
-
-        <ul>
-          <li>
-              <Link href='/'>
-                  Home
-              </Link>
-          </li>
-          <li>
-              <Link href='/post/blo'>
-                  Post
-              </Link>
-          </li>
-        </ul>
+        {/* {loading ? (
+          <>
+            <p>Loading...</p>
+          </>
+        ) : (
+          <> */}
+            {user.map((data) => (
+              <>
+                <h5 key={data.id}>{data.name}</h5>
+              </>
+            ))}
+          {/* </>
+        )} */}
       </main>
     </>
   )
+}
+
+export async function getServerSideProps() {
+  const response = await fetch('https://jsonplaceholder.typicode.com/users')
+
+  const data = await response.json()
+
+  return {
+    props: {
+      user: data,
+    },
+  }
 }
