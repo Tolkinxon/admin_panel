@@ -1,17 +1,7 @@
 import Head from 'next/head'
 import Link from 'next/link'
-import { useState } from 'react'
 
 export default function Home() {
-
-  const data = [
-    { name: 'tech', slug: 'ai' },
-    { name: 'echo', slug: 'environment' },
-    { name: 'lab', slug: 'safety' }
-  ]
-
-
-
 
 
   return (
@@ -25,21 +15,21 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main>
-  
+
         <h1>Home</h1>
 
-        { data.map((data) => (
-        <>
-        <p>
-          <Link href={`/post/${data.slug}`}>
-            {data.name}
-          </Link>
-        </p>
-        </>
-        ))
-        }
-
-     
+        <ul>
+          <li>
+              <Link href='/'>
+                  Home
+              </Link>
+          </li>
+          <li>
+              <Link href='/post/blog'>
+                  Post
+              </Link>
+          </li>
+        </ul>
       </main>
     </>
   )
