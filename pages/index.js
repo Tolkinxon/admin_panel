@@ -1,5 +1,5 @@
 import Head from 'next/head'
-import style from '../styles/Global.module.css'
+import style from '../styles/Global.module.scss'
 
 export default function Home() {
   return (
@@ -27,9 +27,9 @@ export default function Home() {
         </div>
         <style jsx>
           {`
-            // .container{
-            //   border-radius: 0px
-            // }
+            .container {
+              border-radius: 1000px;
+            }
           `}
         </style>
       </main>
