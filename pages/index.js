@@ -25,7 +25,7 @@ export default function Home() {
               </Link>
           </li>
           <li>
-              <Link href='/post/blog'>
+              <Link href='/post/blo'>
                   Post
               </Link>
           </li>
