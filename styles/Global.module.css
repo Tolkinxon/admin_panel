@@ -1,0 +1,22 @@
+.box {
+  width: 600px;
+  height: 300px;
+  background-color: yellow;
+  color: black;
+  margin: 0px auto;
+  margin-top: 30px;
+  padding: 10px;
+}
+
+.title {
+  text-align: center;
+  font-family: sans-serif;
+}
+
+.paragraph {
+  color: blue;
+}
+
+.helo {
+  border: 2px solid red;
+}

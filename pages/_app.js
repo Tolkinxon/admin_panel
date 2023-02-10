@@ -1,12 +1,7 @@
 import '@/styles/globals.css'
-import '../styles/test.css'
-import Layout from '@/components/Layout'
+import '../styles/about.css'
+import '../styles/contact.css'
 
 export default function App({ Component, pageProps }) {
-
-  return (
-    <Layout>
-      <Component {...pageProps} />
-    </Layout>
-  )
+  return <Component {...pageProps} />
 }
