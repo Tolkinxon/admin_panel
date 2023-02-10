@@ -25,6 +25,13 @@ export default function Home() {
             maxime.
           </p>
         </div>
+        <style jsx>
+          {`
+            // .container{
+            //   border-radius: 0px
+            // }
+          `}
+        </style>
       </main>
     </>
   )
