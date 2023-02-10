@@ -13,7 +13,7 @@ export default function Home() {
       </Head>
       <main>
         <div>
-       
+          <h1>hell world</h1>
         </div>
       </main>
     </>
