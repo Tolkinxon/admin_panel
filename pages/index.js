@@ -1,9 +1,19 @@
 import Head from 'next/head'
 import Link from 'next/link'
-import Image from 'next/image'
-import image from '../public/environment.jpg'
+import { useState } from 'react'
 
 export default function Home() {
+
+  const data = [
+    { name: 'tech', slug: 'ai' },
+    { name: 'echo', slug: 'environment' },
+    { name: 'lab', slug: 'safety' }
+  ]
+
+
+
+
+
   return (
     <>
       <Head>
@@ -15,31 +25,21 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main>
-        <Image
-          src="/environment.jpg"
-          layout="intrinsic"
-          width={550}
-          height={350}
-        />
+  
         <h1>Home</h1>
 
-        <ul>
-          <li>
-            <Link href="/">
-              <p>Home</p>
-            </Link>
-          </li>
-          <li>
-            <Link href="/about">
-              <p>About</p>
-            </Link>
-          </li>
-          <li>
-            <Link href="/contact">
-              <p>Contact</p>
-            </Link>
-          </li>
-        </ul>
+        { data.map((data) => (
+        <>
+        <p>
+          <Link href={`/post/${data.slug}`}>
+            {data.name}
+          </Link>
+        </p>
+        </>
+        ))
+        }
+
+     
       </main>
     </>
   )
