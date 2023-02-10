@@ -1,5 +1,7 @@
 import Head from 'next/head'
 import Link from 'next/link'
+import Image from 'next/image'
+import image from '../public/environment.jpg'
 
 export default function Home() {
   return (
@@ -13,6 +15,12 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main>
+        <Image
+          src="/environment.jpg"
+          layout="intrinsic"
+          width={550}
+          height={350}
+        />
         <h1>Home</h1>
 
         <ul>
