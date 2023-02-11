@@ -1,22 +1,32 @@
-// pages/posts/[id].js
+import React from 'react'
 
-// Generates `/posts/1` and `/posts/2`
+const meal = ({ data }) => {
+  console.log(data)
+  const { meals } = data
+  return (
+    <>
+      {meals.map((data) => (
+        <h5 key={data.idMeal}>{data.strMeal}</h5>
+      ))}
+    </>
+  )
+}
+
+export default meal
+
+export async function getStaticProps({ params: { id } }) {
+  const response = await fetch(`http://www.themealdb.com/api/json/v1/1/filter.php?c=${id}`)
+    .then((data) => data.json())
+  return {
+    props: {
+      data: response,
+    },
+  }
+}
+
 export async function getStaticPaths() {
   return {
-    paths: [{ params: { id: '1' } }, { params: { id: '2' } }],
-    fallback: false, // can also be true or 'blocking'
+    paths: [{params:{id: 'Seafood'}}, {params:{id: 'Beef'}}],
+    fallback: false,
   }
-}
-
-// `getStaticPaths` requires using `getStaticProps`
-export async function getStaticProps({params}) {
-  return {
-    // Passed to the page component as props
-    props: { post: params },
-  }
-}
-
-export default function Post({ post }) {
-
-  console.log(post)
 }

@@ -1,6 +1,6 @@
 import Head from 'next/head'
 
-export default function Home({ user }) {
+export default function Home() {
   return (
     <>
       <Head>
@@ -12,22 +12,9 @@ export default function Home({ user }) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main>
-        {user.map((data) => (
-          <h5 key={data.name}>{data.name}</h5>
-        ))}
+ 
       </main>
     </>
   )
 }
 
-export async function getStaticProps() {
-  const response = await fetch(
-    'https://jsonplaceholder.typicode.com/users',
-  ).then((data) => data.json())
-
-  return {
-    props: {
-      user: response,
-    },
-  }
-}
