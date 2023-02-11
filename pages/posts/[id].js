@@ -1,4 +1,5 @@
 import React from 'react'
+import Image from 'next/image'
 
 const meal = ({ data }) => {
   console.log(data)
@@ -6,7 +7,10 @@ const meal = ({ data }) => {
   return (
     <>
       {meals.map((data) => (
-        <h5 key={data.idMeal}>{data.strMeal}</h5>
+        <div key={data.idMeal}>
+          <img src={data.strMealThumb} width={100} height={100} />
+          <h5>{data.strMeal}</h5>
+        </div>
       ))}
     </>
   )
@@ -14,9 +18,11 @@ const meal = ({ data }) => {
 
 export default meal
 
-export async function getStaticProps({ params: { id } }) {
-  const response = await fetch(`http://www.themealdb.com/api/json/v1/1/filter.php?c=${id}`)
-    .then((data) => data.json())
+export async function getStaticProps({ params }) {
+  const strCategory = params.id[0].toUpperCase() + params.id.slice(1)
+  const response = await fetch(
+    `http://www.themealdb.com/api/json/v1/1/filter.php?c=${strCategory}`,
+  ).then((data) => data.json())
   return {
     props: {
       data: response,
@@ -25,8 +31,19 @@ export async function getStaticProps({ params: { id } }) {
 }
 
 export async function getStaticPaths() {
+  const response = await fetch(
+    `http://www.themealdb.com/api/json/v1/1/categories.php`,
+  ).then((data) => data.json())
+
   return {
-    paths: [{params:{id: 'Seafood'}}, {params:{id: 'Beef'}}],
+    paths: response.categories.map((data) => {
+      const id = data.strCategory.toLowerCase()
+      return {
+        params: {
+          id: id,
+        },
+      }
+    }),
     fallback: false,
   }
 }
