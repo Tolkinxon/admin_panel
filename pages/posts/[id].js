@@ -1,5 +1,4 @@
 import React from 'react'
-import Image from 'next/image'
 
 const meal = ({ data }) => {
   console.log(data)
@@ -40,7 +39,7 @@ export async function getStaticPaths() {
       const id = data.strCategory.toLowerCase()
       return {
         params: {
-          id: id,
+          id,
         },
       }
     }),
