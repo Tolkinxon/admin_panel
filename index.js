@@ -2,54 +2,25 @@ const box = document.querySelector('.box')
 const child = document.querySelector('.first')
 const li = document.querySelectorAll('li')
 
-// let i = 0
-// let j = 0
-
-// let prevValueOfScroll = 0
-
-// box2.addEventListener('scroll', (evt) => {
-
-//     console.log(box2.scrollTop);
-
-//     if(prevValueOfScroll >= box2.scrollTop) {
-//         prevValueOfScroll = box2.scrollTop
-//         i += 0.1
-//     }
-//     else {
-//         prevValueOfScroll = box2.scrollTop
-//         i -= 0.1
-//     }
-
-    
-
-
-//     j = i
-//     li.forEach((item) => {
-//         item.style.top = j * 20 + 'px'
-//         j++
-
-//         // console.log(j);
-//     })
-//     j = 0
-// })
-
-
-// li.forEach((item) => {
-//     item.style.top = j * 20 + 'px'
-//     j++
-
-// })
-
-
+let loverScrollTop = 0
 box.addEventListener('scroll', () => {
-    // console.log(box.scrollTop);
 
-    li.forEach(item => item.style.backgroundColor = 'white')
+    if(Math.floor(box.scrollTop) === 205) {
+        box.scrollTop = 0
+    }
+
+    else if(loverScrollTop > box.scrollTop && box.scrollTop === 0) {
+        box.scrollTop = 204
+    }
+
+    li.forEach(item => {
+        item.style.color = 'black'
+        item.style.fontSize = '12px'
+    })
 
 
-    li[Math.ceil(box.scrollTop / 20)  + 1].style.backgroundColor = 'red'
+    li[Math.ceil(box.scrollTop / 20) + 1].style.color = 'red'
+    li[Math.ceil(box.scrollTop / 20) + 1].style.fontSize = '18px'
 
-    // console.log(Math.ceil(box.scrollTop / 20)  + 1);
-
-
+    loverScrollTop = box.scrollTop
 })
