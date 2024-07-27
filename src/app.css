@@ -1,0 +1,45 @@
+
+@font-face {
+    font-display: swap; 
+    font-family: 'Bai Jamjuree';
+    font-style: normal;
+    font-weight: 400;
+    src: url('./fonts/bai-jamjuree-v11-latin-regular.woff2') format('woff2'); 
+  }
+
+
+.App {
+    display: flex;
+    height: 100vh;
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+}
+
+.left-side {
+    padding: 10px;
+    width: 350px;
+    background-color: ghostwhite;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+  
+.left-side__h2 {
+    background-color:  rgb(222, 222, 230);
+    margin: 0;
+    padding-left: 20px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    border-radius: 5px;
+    font-family: 'Bai Jamjuree'
+}
+
+.left-side__h2:hover {
+    background-color: rgb(168, 168, 185);
+}
+
+.h2-active {
+    background-color: rgb(168, 168, 185);
+}
