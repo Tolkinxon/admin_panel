@@ -11,18 +11,25 @@
 .App {
     display: flex;
     height: 100vh;
-    overflow: hidden;
     margin: 0;
     padding: 0;
 }
 
 .left-side {
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    height: 100%;
     padding: 10px;
     width: 350px;
     background-color: ghostwhite;
     display: flex;
     flex-direction: column;
     gap: 5px;
+}
+
+.right-side{
+    margin-left: 400px;
 }
 
   

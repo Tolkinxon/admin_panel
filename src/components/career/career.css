@@ -1,0 +1,61 @@
+.container {
+    display: flex;
+    gap: 5px;
+    flex-direction: column;
+    padding-top: 15px;
+}
+
+.career__button {
+    padding: 10px 30px;
+    border: 2px solid dimgray;
+    outline: none;
+    position: fixed;
+    z-index: 999;
+    border-radius: 5px;
+    font-family: sans-serif;
+    font-weight: 700;
+    top: 10px;
+    right: 10px;
+    background-color: dimgray;
+    color: white;
+}
+
+.career__button:hover{
+    background-color: white;
+    color: dimgray;
+}
+
+span {
+    font-weight: 600;
+}
+
+.career__item {
+    background-color: darkgray;
+    padding: 10px;
+    border-radius: 5px ;
+
+}
+
+.position_tasks__item {
+    background-color: dimgrey;
+    padding: 5px 10px;
+    margin-bottom: 5px;
+}
+
+.inputs__wrapper, .position_tasks__items {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 50px;
+}
+
+label {
+    position: relative;
+    font-family: sans-serif;
+    font-weight: 700;
+}
+
+label input{
+    position: absolute;
+    left: 100px;
+}
