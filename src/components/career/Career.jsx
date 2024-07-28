@@ -5,6 +5,7 @@ const Career = () => {
 
     const [data, setData] = useState([]);
     const [isActive, setIsActive] = useState('add');
+    const [addPositionTasksInputs, setAddPositionTasksInputs] = useState(0)
 
 useEffect(() => {
     (async() => {
@@ -16,6 +17,39 @@ useEffect(() => {
 }, []);
 
 
+    // const addTasks = () => {
+    //     const arr = []
+    //     for(let i = 0; i < addPositionTasksInputs; i++){
+
+    //     }
+
+
+    // }
+
+    const elements = new Array(addPositionTasksInputs).fill(1).map(item => {
+        return (
+            <div className='position_tasks_input__items'>
+            <label htmlFor="fifth">
+                career: 
+                <input type="text" id="fifth"/> 
+            </label>
+
+            <label htmlFor="sixth">
+                text: 
+                <input type="text" id="sixth"/> 
+            </label>
+        </div>
+        )
+    });
+
+
+
+
+
+
+
+
+
 
 
   
@@ -25,11 +59,11 @@ useEffect(() => {
                 <div className='container'>
                 <button className='career__button' onClick={() => setIsActive('back')}>add</button>
                     {
-                        data.map(item => {
-                            const { sub_title, text, title, year_range, position_tasks} = item;
+                        data.map((item, idx) => {
+                            const { sub_title, text, title, year_range, position_tasks, id} = item;
                        
                             return (
-                                    <div className='career__item'>
+                                    <div className='career__item' key={idx}>
                                         <p><span>Subtittle: </span>{sub_title}</p>
                                         <p><span>Text: </span>{text}</p>
                                         <p><span>Title: </span>{title}</p>
@@ -82,8 +116,9 @@ useEffect(() => {
              
                     </div>
 
-                    <div className='position_tasks__wrapper'>
-                        <div className='position_tasks__items'>
+                    <div className='position_tasks_input__wrapper'>
+                        <button className='tasks-input-btn' onClick={() => setAddPositionTasksInputs(prev => prev + 1)}>add</button>
+                        <div className='position_tasks_input__items'>
                             <label htmlFor="fifth">
                                 career: 
                                 <input type="text" id="fifth"/> 
@@ -94,6 +129,10 @@ useEffect(() => {
                                 <input type="text" id="sixth"/> 
                             </label>
                         </div>
+
+                        {
+                            elements
+                        }
                     </div>
                 </div>
             </section>

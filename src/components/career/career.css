@@ -1,8 +1,9 @@
 .container {
     display: flex;
-    gap: 5px;
+    gap: 15px;
     flex-direction: column;
     padding-top: 15px;
+    padding-bottom: 15px;
 }
 
 .career__button {
@@ -42,7 +43,7 @@ span {
     margin-bottom: 5px;
 }
 
-.inputs__wrapper, .position_tasks__items {
+.inputs__wrapper, .position_tasks_input__items {
     display: flex;
     flex-direction: column;
     gap: 10px;
@@ -58,4 +59,28 @@ label {
 label input{
     position: absolute;
     left: 100px;
+}
+.position_tasks_input__wrapper{
+    position: relative;
+    padding-top: 40px;
+  
+}
+
+.tasks-input-btn {
+    background-color: dimgray;
+    padding: 5px 10px;
+    border: 2px solid dimgray;
+    color: white;
+    font-family: sans-serif;
+    font-weight: 700;
+    border-radius: 3px;
+    margin-bottom: 20px;
+    position: absolute;
+    top: 0px;
+    left: 230px;
+}
+
+.tasks-input-btn:hover {
+    background-color: white;
+    color: dimgray;
 }
