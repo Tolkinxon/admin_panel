@@ -56,7 +56,7 @@ label {
     font-weight: 700;
 }
 
-label input{
+label input, label select {
     position: absolute;
     left: 100px;
 }
