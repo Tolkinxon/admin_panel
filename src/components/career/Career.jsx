@@ -1,5 +1,6 @@
 import './career.css'
 import { useEffect, useState } from 'react';
+import close from './../../images/close.svg'
 
 const Career = () => {
 
@@ -7,36 +8,32 @@ const Career = () => {
     const [educationData, setEducationData] = useState([]);
     const [experienceData, setExperienceData] = useState([]);
     const [isActive, setIsActive] = useState('add');
+    const [isOpenModal, setIsOpenModal] = useState('close');
+    const [findId, setFindId] = useState(-1);
     const [isActiveCategory, setIsActiveCategory] = useState('experience');
     const [addPositionTasksInputs, setAddPositionTasksInputs] = useState(0)
 
 
-useEffect(() => {
-    (async() => {
-        const experienceResponse = await fetch('https://test.itpoint.uz/api/career/?type=experience');
-        const dataExperience = await experienceResponse.json();
-        setExperienceData(dataExperience)
+    useEffect(() => {
+        (async() => {
+            const experienceResponse = await fetch('https://test.itpoint.uz/api/career/?type=experience');
+            const dataExperience = await experienceResponse.json();
+            setExperienceData(dataExperience)
 
-        const educationResponse = await fetch('https://test.itpoint.uz/api/career/?type=education');
-        const dataEducation = await educationResponse.json();
-        setEducationData(dataEducation)
+            const educationResponse = await fetch('https://test.itpoint.uz/api/career/?type=education');
+            const dataEducation = await educationResponse.json();
+            setEducationData(dataEducation)
 
-        setData(dataExperience);
+            setData(dataExperience);
 
-    })();
-}, []);
-
+        })();
+    }, []);
 
 
     const elements = new Array(addPositionTasksInputs).fill(1).map(item => {
         return (
             <div className='position_tasks_input__items'>
-            <label htmlFor="fifth">
-                career: 
-                <input type="text" id="fifth" name='another_career'/> 
-            </label>
-
-            <label htmlFor="sixth">
+             <label htmlFor="sixth">
                 text: 
                 <input type="text" id="sixth" name='another_text'/> 
             </label>
@@ -73,13 +70,25 @@ useEffect(() => {
         }
         newArr.shift();
         newObj["position_tasks"] = newArr;
+
+        fetch('https://test.itpoint.uz/api/career/', {
+            headers: {"Content-type": "application/json"},
+            method: "POST",
+            body: JSON.stringify(newObj)
+        }).then(response => console.log(response))
     };
+
+    const handleDelete = () => {
+        console.log(findId);
+        fetch(`https://test.itpoint.uz/api/career/${findId}/`,{method: 'DELETE'})
+        .then(response => console.log(response))
+    }
 
     
   
         return ( 
          <>
-            <section className='career' style={{display: isActive == 'add' ? 'block' : 'none' }}>
+             <section className='career' style={{display: isActive == 'add' ? 'block' : 'none' }}>
 
             <button className={`category-button ${isActiveCategory == 'experience' ? 'category-active':''}`} onClick={() => {setData(experienceData); setIsActiveCategory('experience');}} >experience</button>
 
@@ -94,6 +103,7 @@ useEffect(() => {
                        
                             return (
                                     <div className='career__item' key={idx}>
+                                        <img src={close} alt=""  className='close-icon' onClick={() => {setIsOpenModal('open'); setFindId(id)}}/>
                                         <p><span>Subtittle: </span>{sub_title}</p>
                                         <p><span>Text: </span>{text}</p>
                                         <p><span>Title: </span>{title}</p>
@@ -101,11 +111,10 @@ useEffect(() => {
 
                                         {
                                             position_tasks.map(itemPositionTasks => {
-                                                const { career, text} = itemPositionTasks
+                                                const { text} = itemPositionTasks
                                                 return (
                                                     <>
                                                     <div className='position_tasks__item'>
-                                                        <p><span>career: </span> {career}</p>
                                                         <p><span>text: </span> {text}</p>
                                                     </div>
 
@@ -157,12 +166,7 @@ useEffect(() => {
                         <div className='position_tasks_input__wrapper'>
                             <button className='tasks-input-btn' onClick={() => setAddPositionTasksInputs(prev => prev + 1)}>add</button>
                             <div className='position_tasks_input__items'>
-                                <label htmlFor="fifth">
-                                    career: 
-                                    <input type="text" id="fifth" name='another_career'/> 
-                                </label>
-
-                                <label htmlFor="sixth">
+                               <label htmlFor="sixth">
                                     text: 
                                     <input type="text" id="sixth" name='another_text'/> 
                                 </label>
@@ -175,8 +179,15 @@ useEffect(() => {
                         <button type='submit'>send</button>
                     </form>
                 </div>
-            </section>
+            </section> 
 
+            <div className='modal' style={{display: isOpenModal == 'open' ? 'block' : 'none'}} onClick={() => setIsOpenModal('close')}>
+                <div className='modal__wrapper'>
+                    <p className='modal__text'>Do you want to delete?</p>
+                    <button className='modal__ok'  onClick={() => {setIsOpenModal('close'); handleDelete()}}>ok</button>
+                    <button className='modal__cancel' onClick={() => setIsOpenModal('close')}>cancel</button>
+                </div>
+            </div>
             
          </>
          );

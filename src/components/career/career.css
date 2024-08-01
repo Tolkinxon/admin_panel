@@ -11,7 +11,7 @@
     border: 2px solid dimgray;
     outline: none;
     position: fixed;
-    z-index: 999;
+    z-index: 99;
     border-radius: 5px;
     font-family: sans-serif;
     font-weight: 700;
@@ -31,13 +31,14 @@
     margin-right: 5px;
     background-color: gray;
     padding: 5px 15px;
-    border: 2px solid black;
+    border: 2px solid gray;
     border-radius: 5px;
     color: white;
 }
 
 .category-button:hover, .category-active {
     background-color: black;
+    border: 2px solid black;
 }
 
 span {
@@ -48,7 +49,14 @@ span {
     background-color: darkgray;
     padding: 10px;
     border-radius: 5px ;
+    position: relative;
+}
 
+.close-icon {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    cursor: pointer;
 }
 
 .position_tasks__item {
@@ -61,7 +69,7 @@ span {
     display: flex;
     flex-direction: column;
     gap: 10px;
-    margin-bottom: 50px;
+    margin-bottom: 20px;
 }
 
 label {
@@ -97,4 +105,68 @@ label input, label select {
 .tasks-input-btn:hover {
     background-color: white;
     color: dimgray;
+}
+
+
+.modal {
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
+    overflow: hidden;
+    background-color: rgba(0, 0, 0, 0.492);
+    z-index: 111;
+    
+}
+
+.modal__wrapper {
+    width: 200px;
+    height: 100px;
+    background-color: white;
+    text-align: center;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    
+}
+
+.modal__text {
+    font-size: 18px;
+    font-weight: 500;
+}
+
+.modal__wrapper button {
+    position: absolute;
+    bottom: 10px;
+    border: 2px solid crimson;
+    color: crimson;
+    background-color: white;  
+    border-radius: 5px;
+
+}
+
+.modal__wrapper button:hover {
+    background-color: crimson;
+    color: white;
+} 
+
+.modal__ok{
+    right: 70px;
+}
+.modal__wrapper >
+.modal__cancel {
+    right: 10px;
+    border: 2px solid forestgreen;
+    color: forestgreen;
+}
+.modal__wrapper >
+.modal__cancel:hover {
+    background-color: forestgreen;
+
 }
