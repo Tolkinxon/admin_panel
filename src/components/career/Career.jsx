@@ -1,6 +1,7 @@
 import './career.css'
 import { useEffect, useState } from 'react';
 import close from './../../images/close.svg'
+import closeSmall from './../../images/close_small.svg'
 
 const Career = () => {
 
@@ -43,9 +44,8 @@ const Career = () => {
 
    
     const handleSubmit = (event) => {
+        event.preventDefault();
 
-        event.preventDefault(); 
-      
         const formData = new FormData(event.target);
         const newObj = {};
         const newArr = ['empty'];
@@ -75,13 +75,22 @@ const Career = () => {
             headers: {"Content-type": "application/json"},
             method: "POST",
             body: JSON.stringify(newObj)
-        }).then(response => console.log(response))
+        }).then(response => {
+            if(response.ok){
+                window.location.reload();
+            }
+        })
+
+        
     };
 
     const handleDelete = () => {
-        console.log(findId);
         fetch(`https://test.itpoint.uz/api/career/${findId}/`,{method: 'DELETE'})
-        .then(response => console.log(response))
+        .then(response => {
+            if(response.ok){
+                window.location.reload();
+            }
+        })
     }
 
     
@@ -115,6 +124,7 @@ const Career = () => {
                                                 return (
                                                     <>
                                                     <div className='position_tasks__item'>
+                                                        <img className='close-small-icon' src={closeSmall} alt="close icon" />
                                                         <p><span>text: </span> {text}</p>
                                                     </div>
 
@@ -164,7 +174,7 @@ const Career = () => {
                         </div>
 
                         <div className='position_tasks_input__wrapper'>
-                            <button className='tasks-input-btn' onClick={() => setAddPositionTasksInputs(prev => prev + 1)}>add</button>
+                            <button type='button' className='tasks-input-btn' onClick={() => setAddPositionTasksInputs(prev => prev + 1)}>add</button>
                             <div className='position_tasks_input__items'>
                                <label htmlFor="sixth">
                                     text: 

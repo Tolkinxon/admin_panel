@@ -59,7 +59,15 @@ span {
     cursor: pointer;
 }
 
+.close-small-icon {
+    position: absolute;
+    right: 5px;
+    top: 3px;
+    cursor: pointer;
+}
+
 .position_tasks__item {
+    position: relative;
     background-color: dimgrey;
     padding: 5px 10px;
     margin-bottom: 5px;
