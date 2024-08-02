@@ -156,10 +156,16 @@ label input, label select {
     
 }
 
-.modal__text {
-    font-size: 18px;
-    font-weight: 500;
+.project_modal__wrapper {
+    width: 1000px;
+    height: auto;
 }
+
+.modal-image {
+    width: 100px;
+    object-fit: cover;
+}
+
 
 .modal__wrapper button {
     position: absolute;
@@ -176,9 +182,7 @@ label input, label select {
     color: white;
 } 
 
-.modal__ok{
-    right: 70px;
-}
+
 .modal__wrapper >
 .modal__cancel {
     right: 10px;

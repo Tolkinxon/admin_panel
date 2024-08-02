@@ -6,12 +6,17 @@ import closeSmall from './../../images/close_small.svg'
 const Project = () => {
 
     const [data, setData] = useState([]);
+    const [elementsAllImages, setElementsAllImages] = useState([]);
+
     const [allData, setAllData] = useState([]);
+    const [archvizData, setArchvizData] = useState([]);
+    const [exteriorData, setExteriorData] = useState([]);
+    const [interiorData, setInteriorData] = useState([]);
+
     const [isActive, setIsActive] = useState('add');
+    const [isActiveCategory, setIsActiveCategory] = useState('all');
     const [isOpenModal, setIsOpenModal] = useState('close');
     const [findId, setFindId] = useState(-1);
-    const [isActiveCategory, setIsActiveCategory] = useState('all');
-    const [addPositionTasksInputs, setAddPositionTasksInputs] = useState(0)
 
 
     useEffect(() => {
@@ -19,9 +24,19 @@ const Project = () => {
             const allResponse = await fetch('https://test.itpoint.uz/api/project/?type=all');
             const dataAll = await allResponse.json();
             setAllData(dataAll)
+            setData(dataAll);
 
-            setData(allData);
+            const interiorResponse = await fetch('https://test.itpoint.uz/api/project/?type=interior');
+            const dataInterior = await interiorResponse.json();
+            setInteriorData(dataInterior)
 
+            const exteriorResponse = await fetch('https://test.itpoint.uz/api/project/?type=exterior');
+            const dataExterior = await exteriorResponse.json();
+            setExteriorData(dataExterior)
+
+            const archvizResponse = await fetch('https://test.itpoint.uz/api/project/?type=archviz');
+            const dataArchviz = await archvizResponse.json();
+            setArchvizData(dataArchviz)
         })();
     }, []);
 
@@ -75,6 +90,28 @@ const Project = () => {
         })
     }
 
+    const handleAllImages = async (id) => {
+        const allImagesResponse = await fetch(`https://test.itpoint.uz/api/project/${id}/`, {
+            headers:{
+                'accept': 'application/json',
+                'X-CSRFToken': 'fBjcq6LyPdHYWcpgEjeOw97FI7Y31H0wcTEKzS2jZwTJvvtHUjO6GGsOMHIHXHbj'
+              } 
+        });
+
+ 
+        
+        const dataAllImages = await allImagesResponse.json();
+        const croppedData = await dataAllImages.photos
+
+        setElementsAllImages(croppedData)
+
+
+
+
+
+        
+    }
+
     
   
         return ( 
@@ -83,11 +120,11 @@ const Project = () => {
 
             <button className={`category-button ${isActiveCategory == 'all' ? 'category-active':''}`} onClick={() => {setData(allData); setIsActiveCategory('all');}} >all</button>
 
-            <button className={`category-button ${isActiveCategory == 'interior' ? 'category-active':''}`} onClick={() => { setIsActiveCategory('education')}}>interior</button>
+            <button className={`category-button ${isActiveCategory == 'interior' ? 'category-active':''}`} onClick={() => {setData(interiorData); setIsActiveCategory('interior')}}>interior</button>
 
-            <button className={`category-button ${isActiveCategory == 'exterior' ? 'category-active':''}`} onClick={() => { setIsActiveCategory('education')}}>exterior</button>
+            <button className={`category-button ${isActiveCategory == 'exterior' ? 'category-active':''}`} onClick={() => {setData(exteriorData); setIsActiveCategory('exterior')}}>exterior</button>
 
-            <button className={`category-button ${isActiveCategory == 'archviz' ? 'category-active':''}`} onClick={() => { setIsActiveCategory('education')}}>archviz</button>
+            <button className={`category-button ${isActiveCategory == 'archviz' ? 'category-active':''}`} onClick={() => {setData(archvizData); setIsActiveCategory('archviz')}}>archviz</button>
                     
                 
                 <div className='container'>
@@ -100,7 +137,7 @@ const Project = () => {
                                     <div className='career__item project-career__item' key={idx}>
                                         <img src={close} alt=""  className='close-icon' onClick={() => {setIsOpenModal('open'); setFindId(id)}}/>
 
-                                        <img className='project__image' src={cropped_photo} alt="" />
+                                        <img className='project__image' src={cropped_photo} alt="" onClick={() => {setIsOpenModal('openImages'); handleAllImages(id)}  }/>
                                         <div>
                                             <p><span>Location: </span>{location}</p>
                                             <p><span>Client: </span>{client}</p>
@@ -150,16 +187,6 @@ const Project = () => {
                                 </select>
                             </label>
                         </div>
-
-                        <div className='position_tasks_input__wrapper'>
-                            <button type='button' className='tasks-input-btn' onClick={() => setAddPositionTasksInputs(prev => prev + 1)}>add</button>
-                            <div className='position_tasks_input__items'>
-                               <label htmlFor="sixth">
-                                    text: 
-                                    <input type="text" id="sixth" name='another_text'/> 
-                                </label>
-                            </div>
-                        </div>
                         <button type='submit'>send</button>
                     </form>
                 </div>
@@ -170,6 +197,21 @@ const Project = () => {
                     <p className='modal__text'>Do you want to delete?</p>
                     <button className='modal__ok'  onClick={() => {setIsOpenModal('close'); handleDelete()}}>ok</button>
                     <button className='modal__cancel' onClick={() => setIsOpenModal('close')}>cancel</button>
+                </div>
+            </div>
+
+            <div className='modal' style={{display: isOpenModal == 'openImages' ? 'block' : 'none'}} onClick={() => setIsOpenModal('closeImages')}>
+                <div className='modal__wrapper project_modal__wrapper'>
+                    {
+                                elementsAllImages.map(item => {
+                                    return (
+                                        <>
+                                            <img className='modal-image' src={item.url} alt=""  key={item.id}/>
+                                        </>
+                                    )
+                                })
+                    }
+                    <button className='modal__cancel' onClick={() => setIsOpenModal('closeImages')}>cancel</button>
                 </div>
             </div>
             
