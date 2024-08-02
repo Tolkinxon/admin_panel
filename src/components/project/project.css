@@ -1,0 +1,192 @@
+.container {
+    display: flex;
+    gap: 15px;
+    flex-direction: column;
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+
+.career__button {
+    padding: 10px 30px;
+    border: 2px solid dimgray;
+    outline: none;
+    position: fixed;
+    z-index: 99;
+    border-radius: 5px;
+    font-family: sans-serif;
+    font-weight: 700;
+    top: 10px;
+    right: 10px;
+    background-color: dimgray;
+    color: white;
+}
+
+.career__button:hover{
+    background-color: white;
+    color: dimgray;
+}
+
+.category-button {
+    margin-top: 20px;
+    margin-right: 5px;
+    background-color: gray;
+    padding: 5px 15px;
+    border: 2px solid gray;
+    border-radius: 5px;
+    color: white;
+}
+
+.category-button:hover, .category-active {
+    background-color: black;
+    border: 2px solid black;
+}
+
+span {
+    font-weight: 600;
+}
+
+.career__item {
+    background-color: darkgray;
+    padding: 10px;
+    border-radius: 5px ;
+    position: relative;
+}
+
+.project-career__item  {
+    display: flex;
+    gap: 20px;
+}
+
+.project-career__item .project__image  {
+    width: 200px;
+    object-fit: contain;
+    background-color: black;
+    padding: 10px;
+}
+
+.close-icon {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    cursor: pointer;
+}
+
+.close-small-icon {
+    position: absolute;
+    right: 5px;
+    top: 3px;
+    cursor: pointer;
+}
+
+.position_tasks__item {
+    position: relative;
+    background-color: dimgrey;
+    padding: 5px 10px;
+    margin-bottom: 5px;
+}
+
+.inputs__wrapper, .position_tasks_input__items {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+label {
+    position: relative;
+    font-family: sans-serif;
+    font-weight: 700;
+}
+
+label input, label select {
+    position: absolute;
+    left: 100px;
+}
+.position_tasks_input__wrapper{
+    position: relative;
+    padding-top: 40px;
+  
+}
+
+.tasks-input-btn {
+    background-color: dimgray;
+    padding: 5px 10px;
+    border: 2px solid dimgray;
+    color: white;
+    font-family: sans-serif;
+    font-weight: 700;
+    border-radius: 3px;
+    margin-bottom: 20px;
+    position: absolute;
+    top: 0px;
+    left: 230px;
+}
+
+.tasks-input-btn:hover {
+    background-color: white;
+    color: dimgray;
+}
+
+
+.modal {
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
+    overflow: hidden;
+    background-color: rgba(0, 0, 0, 0.492);
+    z-index: 111;
+    
+}
+
+.modal__wrapper {
+    width: 200px;
+    height: 100px;
+    background-color: white;
+    text-align: center;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    
+}
+
+.modal__text {
+    font-size: 18px;
+    font-weight: 500;
+}
+
+.modal__wrapper button {
+    position: absolute;
+    bottom: 10px;
+    border: 2px solid crimson;
+    color: crimson;
+    background-color: white;  
+    border-radius: 5px;
+
+}
+
+.modal__wrapper button:hover {
+    background-color: crimson;
+    color: white;
+} 
+
+.modal__ok{
+    right: 70px;
+}
+.modal__wrapper >
+.modal__cancel {
+    right: 10px;
+    border: 2px solid forestgreen;
+    color: forestgreen;
+}
+.modal__wrapper >
+.modal__cancel:hover {
+    background-color: forestgreen;
+
+}
