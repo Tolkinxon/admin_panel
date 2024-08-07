@@ -97,7 +97,7 @@ const Career = () => {
   
         return ( 
          <>
-             <section className='career' style={{display: isActive == 'add' ? 'block' : 'none' }}>
+            <section className='career' style={{display: isActive == 'add' ? 'block' : 'none' }}>
 
             <button className={`category-button ${isActiveCategory == 'experience' ? 'category-active':''}`} onClick={() => {setData(experienceData); setIsActiveCategory('experience');}} >experience</button>
 

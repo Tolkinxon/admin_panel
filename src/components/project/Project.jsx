@@ -21,7 +21,7 @@ const Project = () => {
 
     useEffect(() => {
         (async() => {
-            const allResponse = await fetch('https://test.itpoint.uz/api/project/?type=all');
+            const allResponse = await fetch('https://test.itpoint.uz/api/project/?type=all'); 
             const dataAll = await allResponse.json();
             setAllData(dataAll)
             setData(dataAll);
@@ -43,42 +43,22 @@ const Project = () => {
     const handleSubmit = (event) => {
         event.preventDefault();
 
+        const endpoint = 'https://test.itpoint.uz/api/project/';
         const formData = new FormData(event.target);
-        const newObj = {};
-        const newArr = ['empty'];
-        let even = 0;
+        const elInput = event.target.firstChild.firstChild.lastChild
     
-        for (let [key, value] of formData.entries()) {
-            const newAnotherObj = {};
-            if(key.slice(0, 8) == 'another_'){
-                even++
-                const keyName = key.slice(8);
-                newAnotherObj[keyName] = value;
-                if(even % 2 == 0){
-                    newArr[(even / 2)][keyName]=value;
-                }
-                else {
-                    newArr.push(newAnotherObj);
-                }
-            }
-            else {
-                newObj[key] = value;
-            }
+        formData.append('url', '');
+        for(let item of elInput.files){
+            formData.append("photos", item, item.name);
         }
-        newArr.shift();
-        newObj["position_tasks"] = newArr;
 
-        fetch('https://test.itpoint.uz/api/career/', {
-            headers: {"Content-type": "application/json"},
+        fetch(endpoint, {
             method: "POST",
-            body: JSON.stringify(newObj)
-        }).then(response => {
-            if(response.ok){
-                window.location.reload();
-            }
+            body: formData
         })
-
-        
+        .then(response => response.json()) 
+        .then(data => console.log(data))
+        .catch(console.error);
     };
 
     const handleDelete = () => {
@@ -97,22 +77,13 @@ const Project = () => {
                 'X-CSRFToken': 'fBjcq6LyPdHYWcpgEjeOw97FI7Y31H0wcTEKzS2jZwTJvvtHUjO6GGsOMHIHXHbj'
               } 
         });
-
- 
         
         const dataAllImages = await allImagesResponse.json();
         const croppedData = await dataAllImages.photos
 
         setElementsAllImages(croppedData)
-
-
-
-
-
-        
     }
 
-    
   
         return ( 
          <>
@@ -159,32 +130,52 @@ const Project = () => {
                     <button className='career__button' onClick={() => setIsActive('add')}>back</button>
                     <form onSubmit={(e) => handleSubmit(e)}>
                         <div className='inputs__wrapper' >
-                            <label htmlFor="first">
-                                Subtitle: 
-                                <input type="text" id='first' name='sub_title'/> 
+                            <label>
+                                Uploading image:
+                                <input type="file" accept="image/png, image/jpg, image/jpeg" multiple />
                             </label>
 
-                            <label htmlFor="second">
-                                Text: 
-                                <input type="text" id="second" name='text'/> 
+                            <label>
+                                Description: 
+                                <input type="text" name='description'/> 
                             </label>
 
-                            <label htmlFor="third">
-                                Title: 
-                                <input type="text" id='third' name='title'/> 
-                            </label>
-
-                            <label htmlFor="fourth">
-                                Year range: 
-                                <input type="text" id="fourth" name='year_range'/> 
-                            </label>
-
-                            <label htmlFor="fourth">
-                                Year range: 
+                            <label>
+                                Source type: 
                                 <select name="type" >
-                                    <option value="experience" defaultValue={'experience'}>experience</option>
-                                    <option value="education">education</option>
+                                    <option value="photo" defaultValue={'photo'}>photo</option>
+                                    <option value="video">video</option>
                                 </select>
+                            </label>
+
+                            <label >
+                                Project type: 
+                                <select name="type" >
+                                    <option value="all" defaultValue={'all'}>all</option>
+                                    <option value="exterior">exterior</option>
+                                    <option value="interior">interior</option>
+                                    <option value="archviz">archviz</option>
+                                </select>
+                            </label>
+
+                            <label >
+                                Client: 
+                                <input type="text"  name='client'/> 
+                            </label>
+
+                            <label >
+                                Software: 
+                                <input type="text"  name='software'/> 
+                            </label>
+
+                            <label >
+                                Location: 
+                                <input type="text"  name='location'/> 
+                            </label>
+
+                            <label >
+                                Title: 
+                                <input type="text"  name='title'/> 
                             </label>
                         </div>
                         <button type='submit'>send</button>
