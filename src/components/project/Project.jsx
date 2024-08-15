@@ -18,10 +18,10 @@ const Project = () => {
     const [isActiveCategory, setIsActiveCategory] = useState('all');
     const [isOpenModal, setIsOpenModal] = useState('close');
     const [findId, setFindId] = useState(-1);
-
     const [elementsData, setElementsData] = useState(0)
-
     const [arr, setArr] = useState([])
+
+    const [type, setType] = useState('')
 
     
     useEffect(() => {
@@ -64,12 +64,15 @@ const Project = () => {
     };
 
     const handleDelete = () => {
-        fetch(`https://test.itpoint.uz/api/career/${findId}/`,{method: 'DELETE'})
-        .then(response => {
-            if(response.ok){
-                window.location.reload();
-            }
-        })
+
+        if(type == 'projectItem') {
+            fetch(`https://test.itpoint.uz/api/project/${findId}/`,{method: 'DELETE'})
+            .then(response => {
+                if(response.ok){
+                    window.location.reload();
+                }
+            })
+        }
     }
 
     const handleAllImages = async (id) => {
@@ -130,7 +133,7 @@ const Project = () => {
                        
                             return (
                                     <div className='career__item project-career__item' key={idx}>
-                                        <img src={close} alt=""  className='close-icon' onClick={() => {setIsOpenModal('open'); setFindId(id)}}/>
+                                        <img src={close} alt=""  className='close-icon' onClick={() => {setIsOpenModal('open'); setFindId(id); setType('projectItem')}}/>
 
                                         <img className='project__image' src={cropped_photo} alt="" onClick={() => {setIsOpenModal('openImages'); handleAllImages(id)}  }/>
                                         <div>
