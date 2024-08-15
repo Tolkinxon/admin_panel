@@ -19,7 +19,7 @@ const Project = () => {
     const [isOpenModal, setIsOpenModal] = useState('close');
     const [findId, setFindId] = useState(-1);
 
-    const [elementsData, setElementsData] = useState([])
+    const [elementsData, setElementsData] = useState(0)
 
     const [arr, setArr] = useState([])
 
@@ -54,26 +54,13 @@ const Project = () => {
     
         formData.append('url', '');
 
-        
-
-        // for(let item of elInputs[0].files[0]){
-        //     formData.append("photos", item, item.name);
-        // }
-
-        for(let [key, value] of formData.entries()){
-            console.log(key, ' ', value);
-            
-        }
-
-        
-
-        // fetch(endpoint, {
-        //     method: "POST",
-        //     body: formData
-        // })
-        // .then(response => response.json()) 
-        // .then(data => console.log(data))
-        // .catch(console.error);
+        fetch(endpoint, {
+            method: "POST",
+            body: formData
+        })
+        .then(response => response.json()) 
+        .then(data => console.log(data))
+        .catch(console.error);
     };
 
     const handleDelete = () => {
@@ -99,23 +86,10 @@ const Project = () => {
         setElementsAllImages(croppedData)
     }
 
-    let elements = elementsData.map(item => {
-        return (
-            <div>
-                <button type='button' id={item.id} onClick={(e) => deleteSecondaryImage(e)}>delete</button>
-                <label>
-                    Secondary images:
-                <input name='photos' type="file" accept="image/png, image/jpg, image/jpeg" required />
-                 </label>
-            </div>
-        )
-    });
-
     const deleteSecondaryImage = (e) => {
-
-        
-        
-        
+       let idx = arr.findIndex(item => item.props.children[0].props.id == e.target.id)
+       arr.splice(idx, 1);
+       setElementsData(prev => prev + 1)
     }
 
 
@@ -129,12 +103,9 @@ const Project = () => {
                 </label>
             </div>
         )
+
+        setElementsData(prev => prev + 1)
     }
-
-
-    
-    
-    
  
     
 
@@ -188,7 +159,7 @@ const Project = () => {
                                 <input  name='photos' type="file" accept="image/png, image/jpg, image/jpeg"  required/>
                             </label>
 
-                            <button onClick={() => {setElementsData([...elementsData, {id: uuid()}]); addSecondaryImage()}} type='button'>add secondary images</button>
+                            <button onClick={() => {addSecondaryImage()}} type='button'>add secondary images</button>
 
                             { arr.map(item => (item)) }
 
