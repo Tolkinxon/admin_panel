@@ -7,6 +7,10 @@
     src: url('./fonts/bai-jamjuree-v11-latin-regular.woff2') format('woff2'); 
   }
 
+h1, h2, p {
+    color: #1F4382;
+}
+
 
 .App {
     display: flex;

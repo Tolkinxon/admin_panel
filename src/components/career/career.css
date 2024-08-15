@@ -8,7 +8,7 @@
 
 .career__button {
     padding: 10px 30px;
-    border: 2px solid dimgray;
+    border: 1px solid #1F4382;
     outline: none;
     position: fixed;
     z-index: 99;
@@ -17,14 +17,29 @@
     font-weight: 700;
     top: 10px;
     right: 10px;
-    background-color: dimgray;
+    background-color: #1F4382;
     color: white;
+    display: flex;
+    align-items: center;
 }
 
-.career__button:hover{
-    background-color: white;
-    color: dimgray;
+.career__button:hover {
+    color: #1F4382;
 }
+
+.career__button svg {
+    border: 1px solid #fff;
+    padding: 3px;
+}
+
+.career__button:hover svg {
+    border: 1px solid #1F4382;
+}
+
+.career__button:hover svg path{
+    fill: #1F4382;
+}
+
 
 .category-button {
     margin-top: 20px;
@@ -159,15 +174,15 @@ label input, label select {
 .modal__wrapper button {
     position: absolute;
     bottom: 10px;
-    border: 2px solid crimson;
-    color: crimson;
+    border: 2px solid #E53133;
+    color: #E53133;
     background-color: white;  
     border-radius: 5px;
 
 }
 
 .modal__wrapper button:hover {
-    background-color: crimson;
+    background-color: #E53133;
     color: white;
 } 
 
@@ -177,11 +192,11 @@ label input, label select {
 .modal__wrapper >
 .modal__cancel {
     right: 10px;
-    border: 2px solid forestgreen;
-    color: forestgreen;
+    border: 2px solid #1F4382;
+    color: #1F4382;
 }
 .modal__wrapper >
 .modal__cancel:hover {
-    background-color: forestgreen;
+    background-color: #1F4382;
 
 }
