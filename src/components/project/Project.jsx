@@ -2,6 +2,7 @@ import './project.css'
 import { useEffect, useState } from 'react';
 import close from './../../images/close.svg'
 import closeSmall from './../../images/close_small.svg'
+import uuid from 'react-uuid';
 
 const Project = () => {
 
@@ -18,7 +19,11 @@ const Project = () => {
     const [isOpenModal, setIsOpenModal] = useState('close');
     const [findId, setFindId] = useState(-1);
 
+    const [elementsData, setElementsData] = useState([])
 
+    const [arr, setArr] = useState([])
+
+    
     useEffect(() => {
         (async() => {
             const allResponse = await fetch('https://test.itpoint.uz/api/project/?type=all'); 
@@ -45,20 +50,30 @@ const Project = () => {
 
         const endpoint = 'https://test.itpoint.uz/api/project/';
         const formData = new FormData(event.target);
-        const elInput = event.target.firstChild.firstChild.lastChild
+
     
         formData.append('url', '');
-        for(let item of elInput.files){
-            formData.append("photos", item, item.name);
+
+        
+
+        // for(let item of elInputs[0].files[0]){
+        //     formData.append("photos", item, item.name);
+        // }
+
+        for(let [key, value] of formData.entries()){
+            console.log(key, ' ', value);
+            
         }
 
-        fetch(endpoint, {
-            method: "POST",
-            body: formData
-        })
-        .then(response => response.json()) 
-        .then(data => console.log(data))
-        .catch(console.error);
+        
+
+        // fetch(endpoint, {
+        //     method: "POST",
+        //     body: formData
+        // })
+        // .then(response => response.json()) 
+        // .then(data => console.log(data))
+        // .catch(console.error);
     };
 
     const handleDelete = () => {
@@ -84,7 +99,45 @@ const Project = () => {
         setElementsAllImages(croppedData)
     }
 
-  
+    let elements = elementsData.map(item => {
+        return (
+            <div>
+                <button type='button' id={item.id} onClick={(e) => deleteSecondaryImage(e)}>delete</button>
+                <label>
+                    Secondary images:
+                <input name='photos' type="file" accept="image/png, image/jpg, image/jpeg" required />
+                 </label>
+            </div>
+        )
+    });
+
+    const deleteSecondaryImage = (e) => {
+
+        
+        
+        
+    }
+
+
+    const addSecondaryImage = () => {
+        arr.push(
+            <div key={uuid()}>
+                <button type='button' id={uuid()} onClick={(e) => deleteSecondaryImage(e)}>delete</button>
+                <label>
+                    Secondary images:
+                <input name='photos' type="file" accept="image/png, image/jpg, image/jpeg" required />
+                </label>
+            </div>
+        )
+    }
+
+
+    
+    
+    
+ 
+    
+
         return ( 
          <>
             <section className='career' style={{display: isActive == 'add' ? 'block' : 'none' }}>
@@ -130,10 +183,14 @@ const Project = () => {
                     <button className='career__button' onClick={() => setIsActive('add')}>back</button>
                     <form onSubmit={(e) => handleSubmit(e)}>
                         <div className='inputs__wrapper' >
-                            <label>
-                                Uploading image:
-                                <input type="file" accept="image/png, image/jpg, image/jpeg" multiple />
+                            <label id='mainImage'>
+                                Main image:
+                                <input  name='photos' type="file" accept="image/png, image/jpg, image/jpeg"  required/>
                             </label>
+
+                            <button onClick={() => {setElementsData([...elementsData, {id: uuid()}]); addSecondaryImage()}} type='button'>add secondary images</button>
+
+                            { arr.map(item => (item)) }
 
                             <label>
                                 Description: 
