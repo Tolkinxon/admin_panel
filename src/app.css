@@ -20,12 +20,12 @@
     top: 0px;
     left: 0px;
     height: 100%;
-    padding: 10px;
     width: 350px;
-    background-color: ghostwhite;
+    background-color: #1F4382;
     display: flex;
     flex-direction: column;
-    gap: 5px;
+    align-items: end;
+    padding-top: 40px
 }
 
 .right-side{
@@ -34,19 +34,41 @@
 
   
 .left-side__h2 {
-    background-color:  rgb(222, 222, 230);
+    width: 300px;
+    background-color:  #1F4382;
+    border: 1px solid #1F4382;
+    border-left: none;
     margin: 0;
     padding-left: 20px;
     padding-top: 5px;
     padding-bottom: 5px;
-    border-radius: 5px;
-    font-family: 'Bai Jamjuree'
+    border-radius: 15px 0px 0px 15px;
+    font-family: 'Bai Jamjuree';
+    color: white;
+    font-weight: 400px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
 }
 
+
+
 .left-side__h2:hover {
-    background-color: rgb(168, 168, 185);
+    border-bottom: 1px solid white;
+    border-top: 1px solid white;
+ 
 }
 
 .h2-active {
-    background-color: rgb(168, 168, 185);
+    background-color: white;
+    color: #1F4382;
+}
+
+.h2-active svg path {
+    fill: #1F4382;
+}
+
+svg {
+    margin-right: 5px;
+    
 }
