@@ -73,6 +73,17 @@ const Project = () => {
                 }
             })
         }
+
+
+        if(type == 'projectPhoto') {
+            fetch(`https://test.itpoint.uz/api/photo/${findId}/`,{method: 'DELETE'})
+            .then(response => {
+                if(response.ok){
+                    window.location.reload();
+                }
+            })
+        }
+
     }
 
     const handleAllImages = async (id) => {
@@ -109,6 +120,11 @@ const Project = () => {
 
         setElementsData(prev => prev + 1)
     }
+
+    console.log(isOpenModal);
+
+    
+    
  
     
 
@@ -136,6 +152,7 @@ const Project = () => {
                                         <img src={close} alt=""  className='close-icon' onClick={() => {setIsOpenModal('open'); setFindId(id); setType('projectItem')}}/>
 
                                         <img className='project__image' src={cropped_photo} alt="" onClick={() => {setIsOpenModal('openImages'); handleAllImages(id)}  }/>
+                                     
                                         <div>
                                             <p><span>Location: </span>{location}</p>
                                             <p><span>Client: </span>{client}</p>
@@ -222,13 +239,17 @@ const Project = () => {
                 </div>
             </div>
 
-            <div className='modal' style={{display: isOpenModal == 'openImages' ? 'block' : 'none'}} onClick={() => setIsOpenModal('closeImages')}>
+            <div className='modal' style={{display: isOpenModal == 'openImages' ? 'block' : 'none'}}>
                 <div className='modal__wrapper project_modal__wrapper'>
                     {
                                 elementsAllImages.map(item => {
                                     return (
                                         <>
-                                            <img className='modal-image' src={item.url} alt=""  key={item.id}/>
+                                            <div className='modal-image-wrapper'>
+                                                <img src={close} alt=""   className='close-icon close-icon-photos' onClick={() => {setIsOpenModal('open'); setFindId(item.id); setType('projectPhoto')}}/>
+
+                                                <img className='modal-image' src={item.url} alt=""  key={item.id}/>
+                                            </div>
                                         </>
                                     )
                                 })

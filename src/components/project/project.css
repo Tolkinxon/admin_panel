@@ -62,13 +62,22 @@ span {
     object-fit: contain;
     background-color: black;
     padding: 10px;
+
 }
+
 
 .close-icon {
     position: absolute;
     right: 10px;
     top: 10px;
     cursor: pointer;
+}
+.close-icon-photos {
+    width: 15px;
+    right: 0px !important;
+    top: 0px !important;
+    background-color: black;
+    color: red;
 }
 
 .close-small-icon {
@@ -166,9 +175,24 @@ label input, label select {
     gap: 7px;
 }
 
+.modal-image-wrapper {
+    position: relative;
+    border: 2px solid blue;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    background-color: dimgray;
+}
+
+.modal-image-wrapper:hover {
+    border: 2px solid green;
+}
+
 .modal-image {
-    width: 120px;
+    width: 140px;
     object-fit: contain;
+    margin: 5px;
 }
 
 
