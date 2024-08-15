@@ -29,16 +29,17 @@
 .category-button {
     margin-top: 20px;
     margin-right: 5px;
-    background-color: gray;
+    background-color: #fff;
     padding: 5px 15px;
-    border: 2px solid gray;
-    border-radius: 5px;
+    border: 1px solid #1F4382;
     color: white;
+    color: #1F4382;
 }
 
 .category-button:hover, .category-active {
-    background-color: black;
-    border: 2px solid black;
+    background-color: #1F4382;
+    border: 1px solid #1F4382;
+    color: white; 
 }
 
 span {
@@ -46,10 +47,11 @@ span {
 }
 
 .career__item {
-    background-color: darkgray;
+    background-color: #F3F8FF;
     padding: 10px;
-    border-radius: 5px ;
+    border-radius: 5px;
     position: relative;
+    box-shadow: 1px 5px 10px 0px dimgray;
 }
 
 .close-icon {
@@ -68,7 +70,7 @@ span {
 
 .position_tasks__item {
     position: relative;
-    background-color: dimgrey;
+    background-color: #c7f9fe;
     padding: 5px 10px;
     margin-bottom: 5px;
 }
