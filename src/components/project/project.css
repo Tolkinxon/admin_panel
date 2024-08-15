@@ -94,10 +94,9 @@ span {
     margin-bottom: 5px;
 }
 
-.inputs__wrapper, .position_tasks_input__items {
+.inputs__wrapper {
     display: flex;
     flex-direction: column;
-    gap: 10px;
     margin-bottom: 20px;
 }
 
@@ -109,7 +108,7 @@ label {
 
 label input, label select {
     position: absolute;
-    left: 100px;
+    left: 150px !important;
 }
 .position_tasks_input__wrapper{
     position: relative;

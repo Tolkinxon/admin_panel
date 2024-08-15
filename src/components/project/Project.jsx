@@ -31,6 +31,9 @@ const Project = () => {
             setAllData(dataAll)
             setData(dataAll);
 
+            console.log(dataAll);
+            
+
             const interiorResponse = await fetch('https://test.itpoint.uz/api/project/?type=interior');
             const dataInterior = await interiorResponse.json();
             setInteriorData(dataInterior)
@@ -54,12 +57,17 @@ const Project = () => {
     
         formData.append('url', '');
 
+        // for(let [key, value] of formData.entries()){
+        //     console.log(key, ' ', value);
+            
+        // }
+
         fetch(endpoint, {
             method: "POST",
             body: formData
         })
         .then(response => response.json()) 
-        .then(data => console.log(data))
+        .then(data => window.location.reload())
         .catch(console.error);
     };
 
@@ -106,7 +114,6 @@ const Project = () => {
        setElementsData(prev => prev + 1)
     }
 
-
     const addSecondaryImage = () => {
         arr.push(
             <div key={uuid()}>
@@ -121,7 +128,6 @@ const Project = () => {
         setElementsData(prev => prev + 1)
     }
 
-    console.log(isOpenModal);
 
     
     
@@ -190,7 +196,7 @@ const Project = () => {
 
                             <label>
                                 Source type: 
-                                <select name="type" >
+                                <select name="source_type" >
                                     <option value="photo" defaultValue={'photo'}>photo</option>
                                     <option value="video">video</option>
                                 </select>
@@ -198,9 +204,8 @@ const Project = () => {
 
                             <label >
                                 Project type: 
-                                <select name="type" >
-                                    <option value="all" defaultValue={'all'}>all</option>
-                                    <option value="exterior">exterior</option>
+                                <select name="project_type" >
+                                    <option value="exterior" defaultValue={'exterior'}>exterior</option>
                                     <option value="interior">interior</option>
                                     <option value="archviz">archviz</option>
                                 </select>

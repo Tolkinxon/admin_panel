@@ -2,6 +2,8 @@ import './career.css'
 import { useEffect, useState } from 'react';
 import close from './../../images/close.svg'
 import closeSmall from './../../images/close_small.svg'
+import uuid from 'react-uuid';
+
 
 const Career = () => {
 
@@ -13,6 +15,11 @@ const Career = () => {
     const [findId, setFindId] = useState(-1);
     const [isActiveCategory, setIsActiveCategory] = useState('experience');
     const [addPositionTasksInputs, setAddPositionTasksInputs] = useState(0)
+    const [type, setType] = useState('')
+    const [arr, setArr] = useState([])
+    const [elementsData, setElementsData] = useState(0)
+
+
 
 
     useEffect(() => {
@@ -30,46 +37,37 @@ const Career = () => {
         })();
     }, []);
 
+    // const elements = new Array(addPositionTasksInputs).fill(1).map(item => {
+    //     return (
+    //         <div className='position_tasks_input__items'>
+    //             <label htmlFor="sixth">
+    //                 text: 
+    //                 <input type="text" id="sixth" name='another_text'/> 
+    //             </label>
+    //         </div>
+    //     )
+    // });
 
-    const elements = new Array(addPositionTasksInputs).fill(1).map(item => {
-        return (
-            <div className='position_tasks_input__items'>
-             <label htmlFor="sixth">
-                text: 
-                <input type="text" id="sixth" name='another_text'/> 
-            </label>
-        </div>
-        )
-    });
-
-   
     const handleSubmit = (event) => {
         event.preventDefault();
 
         const formData = new FormData(event.target);
+        const formData2 = new FormData(event.target.children[1]);
         const newObj = {};
-        const newArr = ['empty'];
-        let even = 0;
-    
-        for (let [key, value] of formData.entries()) {
-            const newAnotherObj = {};
-            if(key.slice(0, 8) == 'another_'){
-                even++
-                const keyName = key.slice(8);
-                newAnotherObj[keyName] = value;
-                if(even % 2 == 0){
-                    newArr[(even / 2)][keyName]=value;
-                }
-                else {
-                    newArr.push(newAnotherObj);
-                }
-            }
-            else {
-                newObj[key] = value;
-            }
+
+        const textsArr = []
+        for (let [key, value] of formData2.entries()) { 
+            let textObj = {}
+            textObj[key] = value
+            textsArr.push(textObj)
         }
-        newArr.shift();
-        newObj["position_tasks"] = newArr;
+
+        for (let [key, value] of formData.entries()) {
+            newObj[key] = value;
+        }
+        
+        newObj["position_tasks"] = textsArr;
+
 
         fetch('https://test.itpoint.uz/api/career/', {
             headers: {"Content-type": "application/json"},
@@ -80,17 +78,46 @@ const Career = () => {
                 window.location.reload();
             }
         })
-
-        
     };
 
     const handleDelete = () => {
-        fetch(`https://test.itpoint.uz/api/career/${findId}/`,{method: 'DELETE'})
-        .then(response => {
-            if(response.ok){
-                window.location.reload();
-            }
-        })
+        if(type == 'career__item') {
+            fetch(`https://test.itpoint.uz/api/career/${findId}/`,{method: 'DELETE'})
+            .then(response => {
+                if(response.ok){
+                    window.location.reload();
+                }
+            })
+        }
+
+        if(type == 'position_tasks') {
+            fetch(`https://test.itpoint.uz/api/position-task/${findId}/`,{method: 'DELETE'})
+            .then(response => {
+                if(response.ok){
+                    window.location.reload();
+                }
+            })
+        }
+    }
+
+    const deletePositionTask = (e) => {
+        let idx = arr.findIndex(item => item.props.children[0].props.id == e.target.id)
+        arr.splice(idx, 1);
+        setElementsData(prev => prev + 1)
+     }
+
+    const addSecondaryText = () => {
+        arr.push(
+            <div className='position_tasks_input__items' key={uuid()}>
+                <button type='button' id={uuid()} onClick={(e) => deletePositionTask(e)}>delete</button> 
+                <label htmlFor="sixth">
+                    text: 
+                    <input type="text" id="sixth" name='text'/> 
+                </label>
+
+            </div>
+        )
+        setElementsData(prev => prev + 1)
     }
 
     
@@ -112,7 +139,7 @@ const Career = () => {
                        
                             return (
                                     <div className='career__item' key={idx}>
-                                        <img src={close} alt=""  className='close-icon' onClick={() => {setIsOpenModal('open'); setFindId(id)}}/>
+                                        <img src={close} alt=""  className='close-icon' onClick={() => {setIsOpenModal('open'); setType('career__item'); setFindId(id)}}/>
                                         <p><span>Subtittle: </span>{sub_title}</p>
                                         <p><span>Text: </span>{text}</p>
                                         <p><span>Title: </span>{title}</p>
@@ -120,11 +147,11 @@ const Career = () => {
 
                                         {
                                             position_tasks.map(itemPositionTasks => {
-                                                const { text} = itemPositionTasks
+                                                const { text, id } = itemPositionTasks
                                                 return (
                                                     <>
                                                     <div className='position_tasks__item'>
-                                                        <img className='close-small-icon' src={closeSmall} alt="close icon" />
+                                                        <img className='close-small-icon' src={closeSmall} alt="close icon"  onClick={() => {setIsOpenModal('open');setType('position_tasks'); setFindId(id)}}/>
                                                         <p><span>text: </span> {text}</p>
                                                     </div>
 
@@ -173,19 +200,10 @@ const Career = () => {
                             </label>
                         </div>
 
-                        <div className='position_tasks_input__wrapper'>
-                            <button type='button' className='tasks-input-btn' onClick={() => setAddPositionTasksInputs(prev => prev + 1)}>add</button>
-                            <div className='position_tasks_input__items'>
-                               <label htmlFor="sixth">
-                                    text: 
-                                    <input type="text" id="sixth" name='another_text'/> 
-                                </label>
-                            </div>
-
-                            {
-                                elements
-                            }
-                        </div>
+                        <form className='position_tasks_input__wrapper'>
+                            <button type='button' className='tasks-input-btn' onClick={() => addSecondaryText()}>add secondary text</button>
+                            { arr.map(item => (item)) }
+                        </form>
                         <button type='submit'>send</button>
                     </form>
                 </div>
@@ -198,7 +216,6 @@ const Career = () => {
                     <button className='modal__cancel' onClick={() => setIsOpenModal('close')}>cancel</button>
                 </div>
             </div>
-            
          </>
          );
  

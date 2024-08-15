@@ -80,6 +80,10 @@ span {
     margin-bottom: 20px;
 }
 
+.position_tasks_input__items {
+    flex-direction: row;
+}
+
 label {
     position: relative;
     font-family: sans-serif;
@@ -97,6 +101,7 @@ label input, label select {
 }
 
 .tasks-input-btn {
+    width: 200px;
     background-color: dimgray;
     padding: 5px 10px;
     border: 2px solid dimgray;
@@ -107,7 +112,7 @@ label input, label select {
     margin-bottom: 20px;
     position: absolute;
     top: 0px;
-    left: 230px;
+    left: 0px;
 }
 
 .tasks-input-btn:hover {
