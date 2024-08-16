@@ -257,6 +257,7 @@ const Project = () => {
                     }
                     <button className='modal__cancel' onClick={() => setIsOpenModal('closeImages')}>cancel</button>
                 </div>
+                
             </div>
             
          </>
