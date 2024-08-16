@@ -185,8 +185,8 @@ span {
 }
 
 .modal__wrapper {
-    width: 200px;
-    height: 100px;
+    width: 250px;
+    height: 130px;
     background-color: white;
     text-align: center;
     border-radius: 5px;
@@ -197,6 +197,7 @@ span {
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
+    padding: 10px;
     
 }
 
@@ -209,28 +210,20 @@ span {
     position: absolute;
     bottom: 10px;
     border: 2px solid #E53133;
-    color: #E53133;
-    background-color: white;  
+    color: white;
+    background-color: #E53133;  
     border-radius: 5px;
-
+    margin-left: 10px ;
 }
 
-.modal__wrapper button:hover {
-    background-color: #E53133;
-    color: white;
-} 
-
 .modal__ok{
-    right: 70px;
+    right: 76px;
 }
 .modal__wrapper >
 .modal__cancel {
     right: 10px;
     border: 2px solid #1F4382;
-    color: #1F4382;
-}
-.modal__wrapper >
-.modal__cancel:hover {
+    color: white;
     background-color: #1F4382;
-
 }
+

@@ -6,7 +6,6 @@
     padding-bottom: 15px;
 }
 
-
 .career__button {
     padding: 10px 30px;
     border: 2px solid dimgray;
@@ -74,11 +73,11 @@ span {
     cursor: pointer;
 }
 .close-icon-photos {
-    width: 15px;
+    width: 20px;
     right: 0px !important;
     top: 0px !important;
-    background-color: black;
-    color: red;
+    background-color: white;
+    padding: 3px;
 }
 
 .close-small-icon {
@@ -120,7 +119,7 @@ label input, label select {
 .tasks-input-btn {
     background-color: dimgray;
     padding: 5px 10px;
-    border: 2px solid dimgray;
+    border: 2px solid #696969;
     color: white;
     font-family: sans-serif;
     font-weight: 700;
@@ -136,12 +135,21 @@ label input, label select {
     color: dimgray;
 }
 
+.secondary-image {
+    position: relative;
+}
+
+.project-secondary-text-garbage {
+    top: 27px !important;
+}
+
 .add-secondary-img-btn {
-    position: relative !important; 
     width: 250px;
     left: 1px;
-    margin-bottom: 15px;
+    margin-bottom: 20px;
+    position: relative !important;
 }
+
 
 .modal {
     position: fixed;
@@ -188,12 +196,9 @@ label input, label select {
     align-items: center;
     justify-content: center;
     overflow: hidden;
-    background-color: dimgray;
+    background-color: white;
 }
 
-.modal-image-wrapper:hover {
-    border: 2px solid green;
-}
 
 .modal-image {
     width: 140px;
@@ -202,31 +207,9 @@ label input, label select {
 }
 
 
-.modal__wrapper button {
-    position: absolute;
-    bottom: 10px;
-    border: 2px solid crimson;
-    color: crimson;
-    background-color: white;  
-    border-radius: 5px;
-
-}
-
-.modal__wrapper button:hover {
-    background-color: crimson;
-    color: white;
-} 
 
 
-.modal__wrapper >
-.modal__cancel {
-    right: 10px;
-    background-color: white;
-    border: 2px solid forestgreen;
-    color: forestgreen;
-}
-.modal__wrapper >
-.modal__cancel:hover {
-    background-color: forestgreen;
 
-}
+
+
+

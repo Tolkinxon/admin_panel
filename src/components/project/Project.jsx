@@ -116,12 +116,10 @@ const Project = () => {
 
     const addSecondaryImage = () => {
         arr.push(
-            <div key={uuid()}>
-                <button type='button' id={uuid()} onClick={(e) => deleteSecondaryImage(e)}>delete</button>
-                <label>
-                    Secondary images:
-                <input name='photos' type="file" accept="image/png, image/jpg, image/jpeg" required />
-                </label>
+            <div key={uuid()} className='secondary-image'>
+                <img className='secondary-text-garbage project-secondary-text-garbage' src={closeSmall} alt="" id={uuid()} onClick={(e) => deleteSecondaryImage(e)}/>
+                <label for="formFileLg" class="form-label">Secondary image:</label>
+                <input name='photos' class="form-control form-control-lg" id="formFileLg" type="file" required accept="image/png, image/jpg, image/jpeg" />
             </div>
         )
 
@@ -180,10 +178,10 @@ const Project = () => {
                         back</button>
                     <form className='project-form' onSubmit={(e) => handleSubmit(e)}>
                         <div className='inputs__wrapper' >
-                            <label id='mainImage'>
-                                Main image:
-                                <input  name='photos' type="file" accept="image/png, image/jpg, image/jpeg"  required/>
-                            </label>
+                            <div>
+                                <label for="formFileLg" class="form-label">Main image:</label>
+                                <input name='photos' class="form-control form-control-lg" id="formFileLg" type="file" required accept="image/png, image/jpg, image/jpeg" />
+                            </div>
 
                             <button className='career__button add-secondary-img-btn' onClick={() => {addSecondaryImage()}} type='button'>add secondary images</button>
 
