@@ -187,47 +187,89 @@ const Project = () => {
 
                             { arr.map(item => (item)) }
 
-                            <label>
+                            {/* <label>
                                 Description: 
                                 <input type="text" name='description'/> 
-                            </label>
+                            </label> */}
 
-                            <label>
+                            {/* <label>
                                 Source type: 
                                 <select name="source_type" >
                                     <option value="photo" defaultValue={'photo'}>photo</option>
                                     <option value="video">video</option>
                                 </select>
-                            </label>
+                            </label> */}
 
-                            <label >
+                            {/* <label >
                                 Project type: 
                                 <select name="project_type" >
                                     <option value="exterior" defaultValue={'exterior'}>exterior</option>
                                     <option value="interior">interior</option>
                                     <option value="archviz">archviz</option>
                                 </select>
-                            </label>
+                            </label> */}
 
-                            <label >
+                            {/* <label >
                                 Client: 
                                 <input type="text"  name='client'/> 
-                            </label>
+                            </label> */}
 
-                            <label >
+                            {/* <label >
                                 Software: 
                                 <input type="text"  name='software'/> 
-                            </label>
+                            </label> */}
 
-                            <label >
+                            {/* <label >
                                 Location: 
                                 <input type="text"  name='location'/> 
-                            </label>
+                            </label> */}
 
-                            <label >
+                            {/* <label >
                                 Title: 
                                 <input type="text"  name='title'/> 
-                            </label>
+                            </label> */}
+
+
+
+                           
+
+
+ 
+                            <div class="form-floating">
+                                <input type="text" name='client' class="form-control"  id="floatingPassword" placeholder="Client" />
+                                <label for="floatingPassword">Client</label>
+                            </div>
+
+                            <div class="form-floating">
+                                <input type="text" name='title' class="form-control"  id="floatingPassword" placeholder="Title" />
+                                <label for="floatingPassword">Title</label>
+                            </div> 
+
+                            <div class="form-floating">
+                                <input type="text" name='location' class="form-control"  id="floatingPassword" placeholder="Location" />
+                                <label for="floatingPassword">Location</label>
+                            </div>
+
+                            <div class="form-floating">
+                                <input type="text" name='software' class="form-control"  id="floatingPassword" placeholder="Software" />
+                                <label for="floatingPassword">Software</label>
+                            </div>
+
+                            <div class="form-floating">
+                                <input type="text" class="form-control" id="floatingInput" name='description' placeholder="Description" />
+                                <label for="floatingInput">Description</label>
+                            </div>
+
+                            <select class="form-select" aria-label="Default select example" name="source_type">
+                                <option value="photo" defaultValue={'photo'}>photo</option>
+                                <option value="video">video</option>
+                            </select>
+
+                            <select class="form-select" aria-label="Default select example" name="project_type">
+                                    <option value="exterior" defaultValue={'exterior'}>exterior</option>
+                                    <option value="interior">interior</option>
+                                    <option value="archviz">archviz</option>
+                            </select>                        
                         </div>
                         <button type='submit'>send</button>
                     </form>
