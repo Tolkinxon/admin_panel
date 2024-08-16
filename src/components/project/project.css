@@ -6,6 +6,7 @@
     padding-bottom: 15px;
 }
 
+
 .career__button {
     padding: 10px 30px;
     border: 2px solid dimgray;
@@ -135,6 +136,12 @@ label input, label select {
     color: dimgray;
 }
 
+.add-secondary-img-btn {
+    position: relative !important; 
+    width: 250px;
+    left: 1px;
+    margin-bottom: 15px;
+}
 
 .modal {
     position: fixed;

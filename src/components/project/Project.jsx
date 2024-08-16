@@ -175,66 +175,20 @@ const Project = () => {
 
             <section className='career' style={{display: isActive == 'back' ? 'block' : 'none' }}>
                 <div className='container'>
-                    <button className='career__button' onClick={() => setIsActive('add')}>back</button>
-                    <form onSubmit={(e) => handleSubmit(e)}>
+                <button className='career__button' onClick={() => setIsActive('add')}>
+                    <svg width={15} height={15} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path  fill='white' d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.2 288 416 288c17.7 0 32-14.3 32-32s-14.3-32-32-32l-306.7 0L214.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg>
+                        back</button>
+                    <form className='project-form' onSubmit={(e) => handleSubmit(e)}>
                         <div className='inputs__wrapper' >
                             <label id='mainImage'>
                                 Main image:
                                 <input  name='photos' type="file" accept="image/png, image/jpg, image/jpeg"  required/>
                             </label>
 
-                            <button onClick={() => {addSecondaryImage()}} type='button'>add secondary images</button>
+                            <button className='career__button add-secondary-img-btn' onClick={() => {addSecondaryImage()}} type='button'>add secondary images</button>
 
                             { arr.map(item => (item)) }
 
-                            {/* <label>
-                                Description: 
-                                <input type="text" name='description'/> 
-                            </label> */}
-
-                            {/* <label>
-                                Source type: 
-                                <select name="source_type" >
-                                    <option value="photo" defaultValue={'photo'}>photo</option>
-                                    <option value="video">video</option>
-                                </select>
-                            </label> */}
-
-                            {/* <label >
-                                Project type: 
-                                <select name="project_type" >
-                                    <option value="exterior" defaultValue={'exterior'}>exterior</option>
-                                    <option value="interior">interior</option>
-                                    <option value="archviz">archviz</option>
-                                </select>
-                            </label> */}
-
-                            {/* <label >
-                                Client: 
-                                <input type="text"  name='client'/> 
-                            </label> */}
-
-                            {/* <label >
-                                Software: 
-                                <input type="text"  name='software'/> 
-                            </label> */}
-
-                            {/* <label >
-                                Location: 
-                                <input type="text"  name='location'/> 
-                            </label> */}
-
-                            {/* <label >
-                                Title: 
-                                <input type="text"  name='title'/> 
-                            </label> */}
-
-
-
-                           
-
-
- 
                             <div class="form-floating">
                                 <input type="text" name='client' class="form-control"  id="floatingPassword" placeholder="Client" />
                                 <label for="floatingPassword">Client</label>
@@ -271,7 +225,11 @@ const Project = () => {
                                     <option value="archviz">archviz</option>
                             </select>                        
                         </div>
-                        <button type='submit'>send</button>
+
+                        <button type='submit' className='send-button'>
+                        <svg width={15} height={15} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill='#fff' d="M16.1 260.2c-22.6 12.9-20.5 47.3 3.6 57.3L160 376l0 103.3c0 18.1 14.6 32.7 32.7 32.7c9.7 0 18.9-4.3 25.1-11.8l62-74.3 123.9 51.6c18.9 7.9 40.8-4.5 43.9-24.7l64-416c1.9-12.1-3.4-24.3-13.5-31.2s-23.3-7.5-34-1.4l-448 256zm52.1 25.5L409.7 90.6 190.1 336l1.2 1L68.2 285.7zM403.3 425.4L236.7 355.9 450.8 116.6 403.3 425.4z"/></svg>
+                            send
+                            </button>
                     </form>
                 </div>
             </section> 

@@ -90,8 +90,11 @@ const Career = () => {
             })
         }
 
+        console.log(type, findId);
+        
+
         if(type == 'position_tasks') {
-            fetch(`https://test.itpoint.uz/api/position-task/${findId}/`,{method: 'DELETE'})
+            fetch(`https://test.itpoint.uz/api/special/short-task/${findId}`,{method: 'DELETE'})
             .then(response => {
                 if(response.ok){
                     window.location.reload();
