@@ -171,36 +171,36 @@ const Career = () => {
 
             <section className='career' style={{display: isActive == 'back' ? 'block' : 'none' }}>
                 <div className='container'>
-                    <button className='career__button' onClick={() => setIsActive('add')}>back</button>
+                    <button className='career__button' onClick={() => setIsActive('add')}>
+                    <svg width={15} height={15} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path  fill='white' d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.2 288 416 288c17.7 0 32-14.3 32-32s-14.3-32-32-32l-306.7 0L214.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg>
+                        back</button>
+
                     <form onSubmit={(e) => handleSubmit(e)}>
                         <div className='inputs__wrapper' >
-                            <label htmlFor="first">
-                                Subtitle: 
-                                <input type="text" id='first' name='sub_title'/> 
-                            </label>
+                            <div class="form-floating">
+                                <input type="text" class="form-control" id="floatingInput" name='sub_title' placeholder="Subtitle" />
+                                <label for="floatingInput">Subtitle</label>
+                            </div>
+ 
+                            <div class="form-floating">
+                                <input type="text" name='text' class="form-control"  id="floatingPassword" placeholder="Text" />
+                                <label for="floatingPassword">Text</label>
+                            </div>
 
-                            <label htmlFor="second">
-                                Text: 
-                                <input type="text" id="second" name='text'/> 
-                            </label>
+                            <div class="form-floating">
+                                <input type="text" name='title' class="form-control"  id="floatingPassword" placeholder="Title" />
+                                <label for="floatingPassword">Title</label>
+                            </div>
 
-                            <label htmlFor="third">
-                                Title: 
-                                <input type="text" id='third' name='title'/> 
-                            </label>
+                            <div class="form-floating">
+                                <input type="text" name='year_range' class="form-control"  id="floatingPassword" placeholder="Year range" />
+                                <label for="floatingPassword">Year range</label>
+                            </div>
 
-                            <label htmlFor="fourth">
-                                Year range: 
-                                <input type="text" id="fourth" name='year_range'/> 
-                            </label>
-
-                            <label htmlFor="fourth">
-                                Year range: 
-                                <select name="type" >
-                                    <option value="experience" defaultValue={'experience'}>experience</option>
-                                    <option value="education">education</option>
-                                </select>
-                            </label>
+                            <select class="form-select" aria-label="Default select example" name="type">
+                                <option value="experience" defaultValue={'experience'}>experience</option>
+                                <option value="education">education</option>
+                            </select>
                         </div>
 
                         <form className='position_tasks_input__wrapper'>

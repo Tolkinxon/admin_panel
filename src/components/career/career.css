@@ -91,6 +91,7 @@ span {
 }
 
 .inputs__wrapper, .position_tasks_input__items {
+    width: 600px;
     display: flex;
     flex-direction: column;
     gap: 10px;
@@ -101,16 +102,18 @@ span {
     flex-direction: row;
 }
 
-label {
+/* label {
     position: relative;
     font-family: sans-serif;
     font-weight: 700;
-}
+} */
 
-label input, label select {
+/* label input, label select {
     position: absolute;
     left: 100px;
-}
+} */
+
+
 .position_tasks_input__wrapper{
     position: relative;
     padding-top: 40px;
