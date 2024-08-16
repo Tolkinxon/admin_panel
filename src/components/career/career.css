@@ -83,6 +83,10 @@ span {
     cursor: pointer;
 }
 
+.secondary-form {
+    padding-top: 20px;
+}
+
 .position_tasks__item {
     position: relative;
     background-color: #c7f9fe;
@@ -116,29 +120,56 @@ span {
 
 .position_tasks_input__wrapper{
     position: relative;
-    padding-top: 40px;
-  
+    padding-top: 60px ;
 }
 
 .tasks-input-btn {
     width: 200px;
-    background-color: dimgray;
+    background-color: #1F4382;
     padding: 5px 10px;
-    border: 2px solid dimgray;
+    border: 1px solid #1F4382;
     color: white;
     font-family: sans-serif;
     font-weight: 700;
-    border-radius: 3px;
-    margin-bottom: 20px;
+    margin-bottom: 20px ;
     position: absolute;
     top: 0px;
     left: 0px;
 }
 
 .tasks-input-btn:hover {
+    color: #1F4382;
     background-color: white;
-    color: dimgray;
 }
+
+.form-floating {
+    margin-bottom: 10px;
+}
+
+.secondary-text-garbage {
+    cursor: pointer;
+    position: absolute;
+    right: -5px;
+    top: -5px;
+}
+
+.send-button {
+    background-color: #1F4382;
+    padding: 5px 10px;
+    border: 1px solid #1F4382;
+    color: white;
+    border-radius: 3px;
+}
+
+.send-button:hover {
+    color: #1F4382;
+    background-color: white;
+}
+
+.send-button:hover svg path {
+    fill: #1F4382;
+}
+
 
 
 .modal {
