@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import close from './../../images/close.svg'
 import closeSmall from './../../images/close_small.svg'
 import uuid from 'react-uuid';
+import edit from './../../images/edit.svg'
 
 
 const Career = () => {
@@ -69,15 +70,33 @@ const Career = () => {
         newObj["position_tasks"] = textsArr;
 
 
-        fetch('https://test.itpoint.uz/api/career/', {
-            headers: {"Content-type": "application/json"},
-            method: "POST",
-            body: JSON.stringify(newObj)
-        }).then(response => {
-            if(response.ok){
-                window.location.reload();
-            }
-        })
+        if(type == 'edit-item') {
+            fetch(`https://test.itpoint.uz/api/career/${findId}/`,{method: 'DELETE'})
+            .then(response => {
+                if(response.ok){
+                    fetch('https://test.itpoint.uz/api/career/', {
+                        headers: {"Content-type": "application/json"},
+                        method: "POST",
+                        body: JSON.stringify(newObj)
+                    }).then(response => {
+                        if(response.ok){
+                            window.location.reload();
+                        }
+                    })
+                }
+            })
+        }
+        else{
+            fetch('https://test.itpoint.uz/api/career/', {
+                headers: {"Content-type": "application/json"},
+                method: "POST",
+                body: JSON.stringify(newObj)
+            }).then(response => {
+                if(response.ok){
+                    window.location.reload();
+                }
+            })
+        }
     };
 
     const handleDelete = () => {
@@ -90,7 +109,6 @@ const Career = () => {
             })
         }
 
-        console.log(type, findId);
         
 
         if(type == 'position_tasks') {
@@ -120,7 +138,36 @@ const Career = () => {
         setElementsData(prev => prev + 1)
     }
 
-    
+    const addSecondaryTextForEdit = (text) => {
+        arr.push(
+            <div class="form-floating" key={uuid()}>
+                <img className='secondary-text-garbage' src={closeSmall} alt="" id={uuid()} onClick={(e) => deletePositionTask(e)}/>
+                <input type="text" class="form-control" name='text' id="floatingInput"  placeholder="Secondary text" value={text}/>
+                <label for="floatingInput">Secondary text</label>
+            </div>
+        )
+        setElementsData(prev => prev + 1)
+    }
+
+console.log(data);
+
+const handleEdit = (id) => {
+        setFindId(id)
+        const selectectedItemForEdit = data.find(item => item.id == id);
+        const elForm = document.querySelector('.main-form');
+        const allInputs = elForm.querySelectorAll('input');
+        const elSelect = elForm.querySelector('select');
+
+        const { sub_title, text, title, year_range, type, position_tasks } = selectectedItemForEdit;
+
+        allInputs[0].value = sub_title;
+        allInputs[1].value = text;
+        allInputs[2].value = title;
+        allInputs[3].value = year_range
+        elSelect.value = type 
+        
+        position_tasks.map(item => addSecondaryTextForEdit(item.text))
+  }
   
         return ( 
          <>
@@ -142,6 +189,7 @@ const Career = () => {
                        
                             return (
                                     <div className='career__item' key={idx}>
+                                        <img src={edit} alt="" className='edit-icon' onClick={() => {setIsActive('back'); setType(prev => prev = 'edit-item'); handleEdit(id)}}/>
                                         <img src={close} alt=""  className='close-icon' onClick={() => {setIsOpenModal('open'); setType('career__item'); setFindId(id)}}/>
                                         <p><span>Subtittle: </span>{sub_title}</p>
                                         <p><span>Text: </span>{text}</p>
@@ -175,7 +223,7 @@ const Career = () => {
                     <svg width={15} height={15} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path  fill='white' d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.2 288 416 288c17.7 0 32-14.3 32-32s-14.3-32-32-32l-306.7 0L214.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg>
                         back</button>
 
-                    <form  onSubmit={(e) => handleSubmit(e)}>
+                    <form  onSubmit={(e) => handleSubmit(e)} className='main-form'>
                         <div className='inputs__wrapper' >
                             <div class="form-floating">
                                 <input type="text" class="form-control" id="floatingInput" name='sub_title' placeholder="Subtitle" />

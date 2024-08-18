@@ -69,11 +69,15 @@ span {
     box-shadow: 1px 5px 10px 0px dimgray;
 }
 
-.close-icon {
+.close-icon, .edit-icon {
     position: absolute;
     right: 10px;
     top: 10px;
     cursor: pointer;
+}
+
+.edit-icon {
+    right: 40px;   
 }
 
 .close-small-icon {

@@ -31,7 +31,6 @@ const Project = () => {
             setAllData(dataAll)
             setData(dataAll);
 
-            console.log(dataAll);
             
 
             const interiorResponse = await fetch('https://test.itpoint.uz/api/project/?type=interior');
@@ -257,9 +256,7 @@ const Project = () => {
                     }
                     <button className='modal__cancel' onClick={() => setIsOpenModal('closeImages')}>cancel</button>
                 </div>
-                
             </div>
-            
          </>
          );
  
