@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import close from './../../images/close.svg'
 import closeSmall from './../../images/close_small.svg'
 import uuid from 'react-uuid';
+import edit from './../../images/edit.svg'
 
 const Project = () => {
 
@@ -22,6 +23,9 @@ const Project = () => {
     const [arr, setArr] = useState([])
 
     const [type, setType] = useState('')
+
+    console.log(data);
+    
 
     
     useEffect(() => {
@@ -150,6 +154,7 @@ const Project = () => {
                        
                             return (
                                     <div className='career__item project-career__item' key={idx}>
+                                        <img src={edit} alt="" className='edit-icon' onClick={() => {setIsActive('back'); setType(prev => prev = 'edit-item');}}/>
                                         <img src={close} alt=""  className='close-icon' onClick={() => {setIsOpenModal('open'); setFindId(id); setType('projectItem')}}/>
 
                                         <img className='project__image' src={cropped_photo} alt="" onClick={() => {setIsOpenModal('openImages'); handleAllImages(id)}  }/>

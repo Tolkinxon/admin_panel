@@ -149,9 +149,8 @@ const Career = () => {
         setElementsData(prev => prev + 1)
     }
 
-console.log(data);
 
-const handleEdit = (id) => {
+    const handleEdit = (id) => {
         setFindId(id)
         const selectectedItemForEdit = data.find(item => item.id == id);
         const elForm = document.querySelector('.main-form');
@@ -167,7 +166,7 @@ const handleEdit = (id) => {
         elSelect.value = type 
         
         position_tasks.map(item => addSecondaryTextForEdit(item.text))
-  }
+    }
   
         return ( 
          <>
