@@ -54,27 +54,63 @@ const Project = () => {
 
         const endpoint = 'https://test.itpoint.uz/api/project/';
         const formData = new FormData(event.target);
-
-    
         formData.append('url', '');
 
-        // for(let [key, value] of formData.entries()){
-        //     console.log(key, ' ', value);
-            
-        // }
 
         
+        if(type == 'edit-item'){
+            let newObj = {}
+            for(let [key, value] of formData.entries()){
+                if(key != 'photos'){
+                    newObj[key] = value;
+                }   
+                else {
+                    formData.append('photo', value)
+                }         
+            }
+    
+            newObj.cropped_photo = mainPhoto;
 
-        fetch(endpoint, {
-            method: "POST",
-            body: formData
-        })
-        .then(response => response.json()) 
-        .then(data => window.location.reload())
-        .catch(console.error);
+            formData.append('type', formData.get('project_type'))
+            formData.append('id', findId)
+            formData.delete('title')
+            formData.delete('location')
+            formData.delete('software')
+            formData.delete('client')
+            formData.delete('url')
+            formData.delete('photos')
+            formData.delete('project_type')
+            formData.delete('source_type')
+            formData.delete('description')
+
+            fetch(`https://test.itpoint.uz/api/project/${findId}/`, {
+                headers: {"Content-type": "application/json"},
+                method: "PUT",
+                body: JSON.stringify(newObj)
+            })
+            .then(response => response.json()) 
+            .then(data => console.log(data))
+            .catch(console.error);
+
+            fetch('https://test.itpoint.uz/api/photo/', {
+                method: "POST",
+                body: formData
+            })
+            .then(response => response.json()) 
+            .then(data => console.log(data))
+            .catch(console.error);
+        }
+        else {
+            fetch(endpoint, {
+                method: "POST",
+                body: formData
+            })
+            .then(response => response.json()) 
+            .then(data => window.location.reload())
+            .catch(console.error);
+        }
     };
 
-    console.log(type);
     
 
     const handleDelete = () => {
@@ -203,9 +239,9 @@ const Project = () => {
 
                     <form className='project-form' onSubmit={(e) => handleSubmit(e)}>
                         <div className='inputs__wrapper' >
-                            <div style={{display: !type ? 'block':'none'}}>
+                            <div className={!type ? '' : 'visually-hidden'}>
                                 <label for="formFileLg" class="form-label">Main image:</label>
-                                <input name='photos' class="form-control form-control-lg" id="formFileLg" type="file" required accept="image/png, image/jpg, image/jpeg" />
+                                <input disabled={!type ? false:true} name='photos' class="form-control form-control-lg" id="formFileLg" type="file" required accept="image/png, image/jpg, image/jpeg" />
                             </div>
 
                             <button className='career__button add-secondary-img-btn' onClick={() => {addSecondaryImage()}} type='button'>add secondary images</button>
