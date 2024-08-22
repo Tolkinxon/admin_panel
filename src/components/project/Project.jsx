@@ -24,9 +24,6 @@ const Project = () => {
 
     const [type, setType] = useState('')
 
-    console.log(data);
-    
-
     
     useEffect(() => {
         (async() => {
@@ -129,7 +126,6 @@ const Project = () => {
         setElementsData(prev => prev + 1)
     }
 
-
         return ( 
          <>
             <section className='career' style={{display: isActive == 'add' ? 'block' : 'none' }}>
@@ -144,7 +140,7 @@ const Project = () => {
                     
                 
                 <div className='container'>
-                <button className='career__button' onClick={() => setIsActive('back')}>
+                <button className='career__button' onClick={() => {setIsActive('back'); setType('')}}>
                 <svg width={15} height={15} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill='white' d="M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32l0 144L48 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l144 0 0 144c0 17.7 14.3 32 32 32s32-14.3 32-32l0-144 144 0c17.7 0 32-14.3 32-32s-14.3-32-32-32l-144 0 0-144z"/></svg> 
                     add
                     </button>
@@ -154,7 +150,7 @@ const Project = () => {
                        
                             return (
                                     <div className='career__item project-career__item' key={idx}>
-                                        <img src={edit} alt="" className='edit-icon' onClick={() => {setIsActive('back'); setType(prev => prev = 'edit-item');}}/>
+                                        <img src={edit} alt="" className='edit-icon' onClick={() => {setIsActive('back'); setType(prev => prev = 'edit-item');handleAllImages(id);setFindId(id);}}/>
                                         <img src={close} alt=""  className='close-icon' onClick={() => {setIsOpenModal('open'); setFindId(id); setType('projectItem')}}/>
 
                                         <img className='project__image' src={cropped_photo} alt="" onClick={() => {setIsOpenModal('openImages'); handleAllImages(id)}  }/>
@@ -180,9 +176,26 @@ const Project = () => {
                 <button className='career__button' onClick={() => setIsActive('add')}>
                     <svg width={15} height={15} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path  fill='white' d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.2 288 416 288c17.7 0 32-14.3 32-32s-14.3-32-32-32l-306.7 0L214.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg>
                         back</button>
+                        
+                        <div className='sending-side-avialable-images'>
+                        {
+                               type && elementsAllImages.map(item => {
+                                    return (
+                                        <>
+                                            <div className='modal-image-wrapper'>
+                                                <img src={close} alt=""   className='close-icon close-icon-photos' onClick={() => {setIsOpenModal('open'); setFindId(item.id); setType('projectPhoto')}}/>
+
+                                                <img className='modal-image' src={item.url} alt=""  key={item.id}/>
+                                            </div>
+                                        </>
+                                    )
+                                })
+                        }
+                        </div>
+
                     <form className='project-form' onSubmit={(e) => handleSubmit(e)}>
                         <div className='inputs__wrapper' >
-                            <div>
+                            <div style={{display: !type ? 'block':'none'}}>
                                 <label for="formFileLg" class="form-label">Main image:</label>
                                 <input name='photos' class="form-control form-control-lg" id="formFileLg" type="file" required accept="image/png, image/jpg, image/jpeg" />
                             </div>

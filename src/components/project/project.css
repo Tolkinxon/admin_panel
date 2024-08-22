@@ -135,6 +135,12 @@ label input, label select {
     color: dimgray;
 }
 
+.sending-side-avialable-images {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+}
+
 .secondary-image {
     position: relative;
 }
