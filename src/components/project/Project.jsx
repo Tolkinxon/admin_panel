@@ -21,6 +21,7 @@ const Project = () => {
     const [findId, setFindId] = useState(-1);
     const [elementsData, setElementsData] = useState(0)
     const [arr, setArr] = useState([])
+    const [mainPhoto, setMainPhoto] = useState('')
 
     const [type, setType] = useState('')
 
@@ -62,6 +63,8 @@ const Project = () => {
             
         // }
 
+        
+
         fetch(endpoint, {
             method: "POST",
             body: formData
@@ -70,6 +73,9 @@ const Project = () => {
         .then(data => window.location.reload())
         .catch(console.error);
     };
+
+    console.log(type);
+    
 
     const handleDelete = () => {
 
@@ -106,6 +112,7 @@ const Project = () => {
         const croppedData = await dataAllImages.photos
 
         setElementsAllImages(croppedData)
+        setMainPhoto(croppedData[0].url)
     }
 
     const deleteSecondaryImage = (e) => {
@@ -125,6 +132,7 @@ const Project = () => {
 
         setElementsData(prev => prev + 1)
     }
+
 
         return ( 
          <>
