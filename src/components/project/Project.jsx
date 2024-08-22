@@ -57,7 +57,7 @@ const Project = () => {
         formData.append('url', '');
 
 
-        
+
         if(type == 'edit-item'){
             let newObj = {}
             for(let [key, value] of formData.entries()){
@@ -89,7 +89,7 @@ const Project = () => {
                 body: JSON.stringify(newObj)
             })
             .then(response => response.json()) 
-            .then(data => console.log(data))
+            .then(data => window.location.reload())
             .catch(console.error);
 
             fetch('https://test.itpoint.uz/api/photo/', {
@@ -109,9 +109,7 @@ const Project = () => {
             .then(data => window.location.reload())
             .catch(console.error);
         }
-    };
-
-    
+    }
 
     const handleDelete = () => {
 
@@ -134,6 +132,42 @@ const Project = () => {
             })
         }
 
+        if(type == 'edit-item') {
+            let filteredImges = elementsAllImages.filter(item => item.id != findId)
+            setElementsAllImages(filteredImges)
+
+            fetch(`https://test.itpoint.uz/api/photo/${findId}/`,{method: 'DELETE'})
+            .then(response => {
+                if(response.ok){
+                    console.log('item deleted');
+                    
+                }
+            })
+        }
+
+
+    }
+
+    const handleEdit = (id) => {
+        setFindId(id)
+        const selectectedItemForEdit = data.find(item => item.id == id);
+        const elForm = document.querySelector('.project-form');
+        const elAllInputs = elForm.querySelectorAll('input');
+        const elAllSelects = elForm.querySelectorAll('select');
+
+        console.log(elAllInputs);
+        
+
+        const { client, description, location, project_type, software, source_type, title} = selectectedItemForEdit;
+
+        elAllInputs[1].value = client;
+        elAllInputs[2].value = title;
+        elAllInputs[3].value = location;
+        elAllInputs[4].value = software;
+        elAllInputs[5].value = description;
+     
+        elAllSelects[0].value = source_type;
+        elAllSelects[1].value = project_type;        
     }
 
     const handleAllImages = async (id) => {
@@ -194,7 +228,7 @@ const Project = () => {
                        
                             return (
                                     <div className='career__item project-career__item' key={idx}>
-                                        <img src={edit} alt="" className='edit-icon' onClick={() => {setIsActive('back'); setType(prev => prev = 'edit-item');handleAllImages(id);setFindId(id);}}/>
+                                        <img src={edit} alt="" className='edit-icon' onClick={() => {setIsActive('back'); setType(prev => prev = 'edit-item');handleAllImages(id); setFindId(id);handleEdit(id)}}/>
                                         <img src={close} alt=""  className='close-icon' onClick={() => {setIsOpenModal('open'); setFindId(id); setType('projectItem')}}/>
 
                                         <img className='project__image' src={cropped_photo} alt="" onClick={() => {setIsOpenModal('openImages'); handleAllImages(id)}  }/>
@@ -227,7 +261,7 @@ const Project = () => {
                                     return (
                                         <>
                                             <div className='modal-image-wrapper'>
-                                                <img src={close} alt=""   className='close-icon close-icon-photos' onClick={() => {setIsOpenModal('open'); setFindId(item.id); setType('projectPhoto')}}/>
+                                                <img src={close} alt=""   className='close-icon close-icon-photos' onClick={() => {setIsOpenModal('open'); setFindId(item.id); setType('edit-item')}}/>
 
                                                 <img className='modal-image' src={item.url} alt=""  key={item.id}/>
                                             </div>
