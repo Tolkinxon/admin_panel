@@ -92,13 +92,15 @@ const Project = () => {
             .then(data => window.location.reload())
             .catch(console.error);
 
-            fetch('https://test.itpoint.uz/api/photo/', {
-                method: "POST",
-                body: formData
-            })
-            .then(response => response.json()) 
-            .then(data => console.log(data))
-            .catch(console.error);
+            if(formData.get('photo')){
+                fetch('https://test.itpoint.uz/api/photo/', {
+                    method: "POST",
+                    body: formData
+                })
+                .then(response => response.json()) 
+                .then(data => console.log(data))
+                .catch(console.error);
+            }
         }
         else {
             fetch(endpoint, {
@@ -203,6 +205,7 @@ const Project = () => {
         setElementsData(prev => prev + 1)
     }
 
+    
 
         return ( 
          <>
