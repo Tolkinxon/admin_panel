@@ -108,18 +108,35 @@ const Project = () => {
                     body: newFormData
                 })
                 .then(response => response.json()) 
-                .then(data => console.log('data primary photo',data))
+                .then(data => {
+                    console.log(data.url);
+
+                    newObj.cropped_photo = data.url
+
+                    fetch(`https://test.itpoint.uz/api/project/${findId}/`, {
+                        headers: {"Content-type": "application/json"},
+                        method: "PUT",
+                        body: JSON.stringify(newObj)
+                    })
+                    .then(response => response.json()) 
+                    .then(data => window.location.reload())
+                    .catch(console.error);
+                    
+                })
+                .catch(console.error);
+            }
+            else {
+                fetch(`https://test.itpoint.uz/api/project/${findId}/`, {
+                    headers: {"Content-type": "application/json"},
+                    method: "PUT",
+                    body: JSON.stringify(newObj)
+                })
+                .then(response => response.json()) 
+                .then(data => window.location.reload())
                 .catch(console.error);
             }
 
-            fetch(`https://test.itpoint.uz/api/project/${findId}/`, {
-                headers: {"Content-type": "application/json"},
-                method: "PUT",
-                body: JSON.stringify(newObj)
-            })
-            .then(response => response.json()) 
-            .then(data => console.log('data inputs', data))
-            .catch(console.error);
+
 
             if(formData.get('photo')){
                 formData.append('type', 'secondary')
@@ -129,10 +146,11 @@ const Project = () => {
                     body: formData
                 })
                 .then(response => response.json()) 
-                .then(data => console.log('data secondary photo', data))
+                .then(data => window.location.reload())
                 .catch(console.error);
             }
         }
+
         else {
             fetch(endpoint, {
                 method: "POST",
@@ -200,6 +218,23 @@ const Project = () => {
         elAllSelects[1].value = project_type;        
     }
 
+    const handleAdd = () => {
+        const elForm = document.querySelector('.project-form');
+        const elAllInputs = elForm.querySelectorAll('input');
+        const elAllSelects = elForm.querySelectorAll('select');
+
+        elAllInputs[1].value = '';
+        elAllInputs[2].value = '';
+        elAllInputs[3].value = '';
+        elAllInputs[4].value = '';
+        elAllInputs[5].value = '';
+     
+        elAllSelects[0].value = 'photo';
+        elAllSelects[1].value = 'exterior'; 
+
+        setArr([]);
+    }
+
     const handleAllImages = async (id) => {
         const allImagesResponse = await fetch(`https://test.itpoint.uz/api/project/${id}/`, {
             headers:{
@@ -233,6 +268,8 @@ const Project = () => {
         setElementsData(prev => prev + 1)
     }
 
+
+
     
 
         return ( 
@@ -249,7 +286,7 @@ const Project = () => {
                     
                 
                 <div className='container'>
-                <button className='career__button' onClick={() => {setIsActive('back'); setType('')}}>
+                <button className='career__button' onClick={() => {setIsActive('back'); setType(''); handleAdd()}}>
                 <svg width={15} height={15} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill='white' d="M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32l0 144L48 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l144 0 0 144c0 17.7 14.3 32 32 32s32-14.3 32-32l0-144 144 0c17.7 0 32-14.3 32-32s-14.3-32-32-32l-144 0 0-144z"/></svg> 
                     add
                     </button>
@@ -341,7 +378,7 @@ const Project = () => {
 
                             <select class="form-select" aria-label="Default select example" name="source_type">
                                 <option value="photo" defaultValue={'photo'}>photo</option>
-                                <option value="video">video</option>
+                                <option value="video" disabled>video</option>
                             </select>
 
                             <select class="form-select" aria-label="Default select example" name="project_type">
