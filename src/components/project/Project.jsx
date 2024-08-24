@@ -24,6 +24,7 @@ const Project = () => {
     const [mainPhoto, setMainPhoto] = useState('')
 
     const [type, setType] = useState('')
+    const [hideMainImg, setHideMainImg] = useState(false);
 
     
     useEffect(() => {
@@ -68,10 +69,11 @@ const Project = () => {
                     formData.append('photo', value)
                 }         
             }
+
     
             newObj.cropped_photo = mainPhoto;
 
-            formData.append('type', formData.get('project_type'))
+            
             formData.append('id', findId)
             formData.delete('title')
             formData.delete('location')
@@ -83,22 +85,28 @@ const Project = () => {
             formData.delete('source_type')
             formData.delete('description')
 
+          
+            console.log(formData.get('photo'));
+            
+
             fetch(`https://test.itpoint.uz/api/project/${findId}/`, {
                 headers: {"Content-type": "application/json"},
                 method: "PUT",
                 body: JSON.stringify(newObj)
             })
             .then(response => response.json()) 
-            .then(data => window.location.reload())
+            .then(data => console.log('hello'))
             .catch(console.error);
 
             if(formData.get('photo')){
+                formData.append('type', 'secondary')
+
                 fetch('https://test.itpoint.uz/api/photo/', {
                     method: "POST",
                     body: formData
                 })
                 .then(response => response.json()) 
-                .then(data => console.log(data))
+                .then(data => console.log('hello'))
                 .catch(console.error);
             }
         }
@@ -254,7 +262,7 @@ const Project = () => {
 
             <section className='career' style={{display: isActive == 'back' ? 'block' : 'none' }}>
                 <div className='container'>
-                <button className='career__button' onClick={() => setIsActive('add')}>
+                <button className='career__button' onClick={() => {setIsActive('add'); setHideMainImg(false)}}>
                     <svg width={15} height={15} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path  fill='white' d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.2 288 416 288c17.7 0 32-14.3 32-32s-14.3-32-32-32l-306.7 0L214.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg>
                         back</button>
                         
@@ -276,9 +284,10 @@ const Project = () => {
 
                     <form className='project-form' onSubmit={(e) => handleSubmit(e)}>
                         <div className='inputs__wrapper' >
-                            <div className={!type ? '' : 'visually-hidden'}>
+                            <div style={{position: 'relative'}} className={`${hideMainImg ? 'visually-hidden':''}`}>
+                                <img  className={`${type ? '':'visually-hidden'} secondary-text-garbage project-secondary-text-garbage`} src={closeSmall} onClick={() => setHideMainImg(true)} alt="" />
                                 <label for="formFileLg" class="form-label">Main image:</label>
-                                <input disabled={!type ? false:true} name='photos' class="form-control form-control-lg" id="formFileLg" type="file" required accept="image/png, image/jpg, image/jpeg" />
+                                <input disabled={hideMainImg ? true:false}  name='photos' class="form-control form-control-lg" id="formFileLg" type="file" required accept="image/png, image/jpg, image/jpeg" />
                             </div>
 
                             <button className='career__button add-secondary-img-btn' onClick={() => {addSecondaryImage()}} type='button'>add secondary images</button>
