@@ -58,7 +58,7 @@ const Project = () => {
         formData.append('url', '');
 
 
-
+        let countingFromSecondItem = 0;
         if(type == 'edit-item'){
             let newObj = {}
             for(let [key, value] of formData.entries()){
@@ -66,14 +66,19 @@ const Project = () => {
                     newObj[key] = value;
                 }   
                 else {
-                    formData.append('photo', value)
+                    if(!hideMainImg && countingFromSecondItem == 0) {
+                        formData.append('mainPhoto', value)
+                    }
+                    else {
+                        formData.append('photo', value)
+                    }
+                    countingFromSecondItem++
                 }         
             }
 
     
             newObj.cropped_photo = mainPhoto;
 
-            
             formData.append('id', findId)
             formData.delete('title')
             formData.delete('location')
@@ -85,9 +90,27 @@ const Project = () => {
             formData.delete('source_type')
             formData.delete('description')
 
-          
-            console.log(formData.get('photo'));
             
+            if(!hideMainImg){
+                let newFormData = new FormData();
+
+                newFormData.append('photo', formData.get('mainPhoto'))
+                newFormData.append('id', findId)
+                newFormData.append('type', 'primary')
+                formData.delete('mainPhoto')
+
+                // for(let [key, value] of newFormData.entries()){
+                //     console.log(key, value);
+                // }
+
+                fetch('https://test.itpoint.uz/api/photo/', {
+                    method: "POST",
+                    body: newFormData
+                })
+                .then(response => response.json()) 
+                .then(data => console.log('data primary photo',data))
+                .catch(console.error);
+            }
 
             fetch(`https://test.itpoint.uz/api/project/${findId}/`, {
                 headers: {"Content-type": "application/json"},
@@ -95,7 +118,7 @@ const Project = () => {
                 body: JSON.stringify(newObj)
             })
             .then(response => response.json()) 
-            .then(data => console.log('hello'))
+            .then(data => console.log('data inputs', data))
             .catch(console.error);
 
             if(formData.get('photo')){
@@ -106,7 +129,7 @@ const Project = () => {
                     body: formData
                 })
                 .then(response => response.json()) 
-                .then(data => console.log('hello'))
+                .then(data => console.log('data secondary photo', data))
                 .catch(console.error);
             }
         }
@@ -164,9 +187,6 @@ const Project = () => {
         const elForm = document.querySelector('.project-form');
         const elAllInputs = elForm.querySelectorAll('input');
         const elAllSelects = elForm.querySelectorAll('select');
-
-        console.log(elAllInputs);
-        
 
         const { client, description, location, project_type, software, source_type, title} = selectectedItemForEdit;
 
