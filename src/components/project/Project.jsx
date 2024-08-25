@@ -76,8 +76,6 @@ const Project = () => {
                 }         
             }
 
-    
-
             formData.append('id', findId)
             formData.delete('title')
             formData.delete('location')
@@ -88,28 +86,6 @@ const Project = () => {
             formData.delete('project_type')
             formData.delete('source_type')
             formData.delete('description')
-
-            
-            if(!hideMainImg){
-                let newFormData = new FormData();
-
-                newFormData.append('photo', formData.get('mainPhoto'))
-                newFormData.append('id', findId)
-                newFormData.append('type', 'primary')
-                formData.delete('mainPhoto')
-
-                // for(let [key, value] of newFormData.entries()){
-                //     console.log(key, value);
-                // }
-
-                fetch('https://test.itpoint.uz/api/photo/', {
-                    method: "POST",
-                    body: newFormData
-                })
-                .then(response => response.json()) 
-                .then(data => data)
-                .catch(console.error);
-            }
             
                 fetch(`https://test.itpoint.uz/api/project/${findId}/`, {
                     headers: {"Content-type": "application/json"},
@@ -117,23 +93,41 @@ const Project = () => {
                     body: JSON.stringify(newObj)
                 })
                 .then(response => response.json()) 
-                .then(data => data)
-                .catch(console.error);
-           
+                .then(data => {
+                    if(!hideMainImg){
+                        let newFormData = new FormData();
+        
+                        newFormData.append('photo', formData.get('mainPhoto'))
+                        newFormData.append('id', findId)
+                        newFormData.append('type', 'primary')
+                        formData.delete('mainPhoto')
+        
+                        // for(let [key, value] of newFormData.entries()){
+                        //     console.log(key, value);
+                        // }
+        
+                        fetch('https://test.itpoint.uz/api/photo/', {
+                            method: "POST",
+                            body: newFormData
+                        })
+                        .then(response => response.json()) 
+                        .then(data => window.location.reload())
+                        .catch(console.error);
+                    }
 
-
-
-            if(formData.get('photo')){
-                formData.append('type', 'secondary')
-
-                fetch('https://test.itpoint.uz/api/photo/', {
-                    method: "POST",
-                    body: formData
+                    if(formData.get('photo')){
+                        formData.append('type', 'secondary')
+        
+                        fetch('https://test.itpoint.uz/api/photo/', {
+                            method: "POST",
+                            body: formData
+                        })
+                        .then(response => response.json()) 
+                        .then(data => window.location.reload())
+                        .catch(console.error);
+                    }
                 })
-                .then(response => response.json()) 
-                .then(data => data)
                 .catch(console.error);
-            }
         }
 
         else {
@@ -307,12 +301,14 @@ const Project = () => {
 
             <section className='career' style={{display: isActive == 'back' ? 'block' : 'none' }}>
                 <div className='container'>
-                <button className='career__button' onClick={() => {setIsActive('add'); setHideMainImg(false)}}>
+                <button className='career__button' onClick={() => {setIsActive('add'); setHideMainImg(true)}}>
                     <svg width={15} height={15} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path  fill='white' d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.2 288 416 288c17.7 0 32-14.3 32-32s-14.3-32-32-32l-306.7 0L214.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg>
                         back</button>
-                        
+                        <h2>Main image</h2>
                         <img className={`${type ? '':'visually-hidden'}`} src={mainPhoto} width={400} alt=""/>
+                        <h2>Secondary images</h2>
                         <div  className='sending-side-avialable-images'>
+                            
                         {
                                type && elementsAllImages.map(item => {
                                     return (
@@ -333,6 +329,7 @@ const Project = () => {
                             <button type='button' className='career__button add-secondary-img-btn' onClick={() => setHideMainImg(false)} style={{display: !hideMainImg ? 'none':'block'}}>add main image</button>
 
                             <div style={{position: 'relative'}} className={`${hideMainImg ? 'visually-hidden':''}`}>
+                                
                                 <img  className={`${type ? '':'visually-hidden'} secondary-text-garbage project-secondary-text-garbage`} src={closeSmall} onClick={() => setHideMainImg(true)} alt="" />
                                 <label for="formFileLg" class="form-label">Main image:</label>
                                 <input disabled={hideMainImg ? true:false}  name='photos' class="form-control form-control-lg" id="formFileLg" type="file" required accept="image/png, image/jpg, image/jpeg" />
