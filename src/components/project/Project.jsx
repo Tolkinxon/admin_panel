@@ -114,6 +114,9 @@ const Project = () => {
                         .then(data => window.location.reload())
                         .catch(console.error);
                     }
+                    else {
+                        window.location.reload() 
+                    }
 
                     if(formData.get('photo')){
                         formData.append('type', 'secondary')
@@ -125,6 +128,9 @@ const Project = () => {
                         .then(response => response.json()) 
                         .then(data => window.location.reload())
                         .catch(console.error);
+                    }
+                    else {
+                        window.location.reload() 
                     }
                 })
                 .catch(console.error);
@@ -326,7 +332,7 @@ const Project = () => {
 
                     <form className='project-form' onSubmit={(e) => handleSubmit(e)}>
                         <div className='inputs__wrapper' >
-                            <button type='button' className='career__button add-secondary-img-btn' onClick={() => setHideMainImg(false)} style={{display: !hideMainImg ? 'none':'block'}}>add main image</button>
+                            <button type='button' className='career__button add-secondary-img-btn' onClick={() => setHideMainImg(false)} style={{display: !hideMainImg ? 'none':'block'}}>change main image</button>
 
                             <div style={{position: 'relative'}} className={`${hideMainImg ? 'visually-hidden':''}`}>
                                 
