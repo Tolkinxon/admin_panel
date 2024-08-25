@@ -24,7 +24,7 @@ const Project = () => {
     const [mainPhoto, setMainPhoto] = useState('')
 
     const [type, setType] = useState('')
-    const [hideMainImg, setHideMainImg] = useState(false);
+    const [hideMainImg, setHideMainImg] = useState(true);
 
     
     useEffect(() => {
@@ -77,7 +77,6 @@ const Project = () => {
             }
 
     
-            newObj.cropped_photo = mainPhoto;
 
             formData.append('id', findId)
             formData.delete('title')
@@ -108,33 +107,19 @@ const Project = () => {
                     body: newFormData
                 })
                 .then(response => response.json()) 
-                .then(data => {
-                    console.log(data.url);
-
-                    newObj.cropped_photo = data.url
-
-                    fetch(`https://test.itpoint.uz/api/project/${findId}/`, {
-                        headers: {"Content-type": "application/json"},
-                        method: "PUT",
-                        body: JSON.stringify(newObj)
-                    })
-                    .then(response => response.json()) 
-                    .then(data => window.location.reload())
-                    .catch(console.error);
-                    
-                })
+                .then(data => data)
                 .catch(console.error);
             }
-            else {
+            
                 fetch(`https://test.itpoint.uz/api/project/${findId}/`, {
                     headers: {"Content-type": "application/json"},
-                    method: "PUT",
+                    method: "PATCH",
                     body: JSON.stringify(newObj)
                 })
                 .then(response => response.json()) 
-                .then(data => window.location.reload())
+                .then(data => data)
                 .catch(console.error);
-            }
+           
 
 
 
@@ -146,7 +131,7 @@ const Project = () => {
                     body: formData
                 })
                 .then(response => response.json()) 
-                .then(data => window.location.reload())
+                .then(data => data)
                 .catch(console.error);
             }
         }
@@ -247,7 +232,8 @@ const Project = () => {
         const croppedData = await dataAllImages.photos
 
         setElementsAllImages(croppedData)
-        setMainPhoto(croppedData[0].url)
+        setMainPhoto(dataAllImages.cropped_photo)
+        
     }
 
     const deleteSecondaryImage = (e) => {
@@ -293,6 +279,8 @@ const Project = () => {
                     {
                         data.map((item, idx) => {
                             const { cropped_photo, title, location, software, client, url, project_type, source_type, description, id} = item;
+
+                            
                        
                             return (
                                     <div className='career__item project-career__item' key={idx}>
@@ -323,7 +311,8 @@ const Project = () => {
                     <svg width={15} height={15} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path  fill='white' d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.2 288 416 288c17.7 0 32-14.3 32-32s-14.3-32-32-32l-306.7 0L214.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg>
                         back</button>
                         
-                        <div className='sending-side-avialable-images'>
+                        <img className={`${type ? '':'visually-hidden'}`} src={mainPhoto} width={400} alt=""/>
+                        <div  className='sending-side-avialable-images'>
                         {
                                type && elementsAllImages.map(item => {
                                     return (
@@ -341,6 +330,8 @@ const Project = () => {
 
                     <form className='project-form' onSubmit={(e) => handleSubmit(e)}>
                         <div className='inputs__wrapper' >
+                            <button type='button' className='career__button add-secondary-img-btn' onClick={() => setHideMainImg(false)} style={{display: !hideMainImg ? 'none':'block'}}>add main image</button>
+
                             <div style={{position: 'relative'}} className={`${hideMainImg ? 'visually-hidden':''}`}>
                                 <img  className={`${type ? '':'visually-hidden'} secondary-text-garbage project-secondary-text-garbage`} src={closeSmall} onClick={() => setHideMainImg(true)} alt="" />
                                 <label for="formFileLg" class="form-label">Main image:</label>
