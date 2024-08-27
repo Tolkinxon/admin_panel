@@ -115,7 +115,9 @@ const Project = () => {
                         .catch(console.error);
                     }
                     else {
-                        window.location.reload() 
+                        setTimeout(() => {
+                            window.location.reload()
+                        }, 2500); 
                     }
 
                     if(formData.get('photo')){
@@ -130,7 +132,9 @@ const Project = () => {
                         .catch(console.error);
                     }
                     else {
-                        window.location.reload() 
+                        setTimeout(() => {
+                            window.location.reload()
+                        }, 2500);  
                     }
                 })
                 .catch(console.error);
@@ -272,7 +276,7 @@ const Project = () => {
                     
                 
                 <div className='container'>
-                <button className='career__button' onClick={() => {setIsActive('back'); setType(''); handleAdd()}}>
+                <button className='career__button' onClick={() => {setIsActive('back'); setType(''); handleAdd(); setHideMainImg(false)}}>
                 <svg width={15} height={15} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill='white' d="M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32l0 144L48 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l144 0 0 144c0 17.7 14.3 32 32 32s32-14.3 32-32l0-144 144 0c17.7 0 32-14.3 32-32s-14.3-32-32-32l-144 0 0-144z"/></svg> 
                     add
                     </button>
@@ -310,9 +314,9 @@ const Project = () => {
                 <button className='career__button' onClick={() => {setIsActive('add'); setHideMainImg(true)}}>
                     <svg width={15} height={15} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path  fill='white' d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.2 288 416 288c17.7 0 32-14.3 32-32s-14.3-32-32-32l-306.7 0L214.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg>
                         back</button>
-                        <h2>Main image</h2>
+                        <h2 className={`${!type ? 'visually-hidden': ''}`}>Main image</h2>
                         <img className={`${type ? '':'visually-hidden'}`} src={mainPhoto} width={400} alt=""/>
-                        <h2>Secondary images</h2>
+                        <h2 className={`${!type ? 'visually-hidden': ''}`}>Secondary images</h2>
                         <div  className='sending-side-avialable-images'>
                             
                         {
@@ -332,9 +336,9 @@ const Project = () => {
 
                     <form className='project-form' onSubmit={(e) => handleSubmit(e)}>
                         <div className='inputs__wrapper' >
-                            <button type='button' className='career__button add-secondary-img-btn' onClick={() => setHideMainImg(false)} style={{display: !hideMainImg ? 'none':'block'}}>change main image</button>
+                            <button type='button' className={`${!type ? 'visually-hidden': ''} career__button add-secondary-img-btn`} onClick={() => setHideMainImg(false)} style={{display: !hideMainImg ? 'none':'block'}}>change main image</button>
 
-                            <div style={{position: 'relative'}} className={`${hideMainImg ? 'visually-hidden':''}`}>
+                            <div style={{position: 'relative'}} className={`${hideMainImg  ? 'visually-hidden':''}`}>
                                 
                                 <img  className={`${type ? '':'visually-hidden'} secondary-text-garbage project-secondary-text-garbage`} src={closeSmall} onClick={() => setHideMainImg(true)} alt="" />
                                 <label for="formFileLg" class="form-label">Main image:</label>
