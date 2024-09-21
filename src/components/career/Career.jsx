@@ -21,6 +21,8 @@ const Career = () => {
     const [elementsData, setElementsData] = useState(0)
     const [loadingTitme, setLoadingTime] = useState(false)
 
+    let hello = 0;
+
 
 
 
