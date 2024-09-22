@@ -76,3 +76,12 @@ svg {
     margin-right: 5px;
     
 }
+
+.randomBtn {
+    border: none;
+    outline: none;
+    border-radius: 5px;
+    text-align: left;
+    color:#1F4382;
+    margin-right: 10px;
+}

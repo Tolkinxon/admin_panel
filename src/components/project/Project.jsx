@@ -26,7 +26,7 @@ const Project = () => {
     const [hideMainImg, setHideMainImg] = useState(true);
     const [loadingTitme, setLoadingTime] = useState(false)
 
-    
+
     useEffect(() => {
         (async() => {
             const allResponse = await fetch('https://test.itpoint.uz/api/project/?type=all'); 
@@ -56,8 +56,7 @@ const Project = () => {
         const endpoint = 'https://test.itpoint.uz/api/project/';
         const formData = new FormData(event.target);
         formData.append('url', '');
-
-
+      
         let countingFromSecondItem = 0;
         if(type == 'edit-item'){
             let newObj = {}
@@ -86,6 +85,9 @@ const Project = () => {
             formData.delete('project_type')
             formData.delete('source_type')
             formData.delete('description')
+            formData.delete('order')
+
+
 
                 setLoadingTime(true);            
                 fetch(`https://test.itpoint.uz/api/project/${findId}/`, {
@@ -146,6 +148,12 @@ const Project = () => {
         }
 
         else {
+            let storeObj = {}
+            for(let [key, value] of formData.entries()){
+                console.log(key, value);
+                storeObj[key] = value;
+            }
+            localStorage.setItem('obj', JSON.stringify(storeObj))
 
             setLoadingTime(true);
             fetch(endpoint, {
@@ -202,13 +210,14 @@ const Project = () => {
         const elAllInputs = elForm.querySelectorAll('input');
         const elAllSelects = elForm.querySelectorAll('select');
 
-        const { client, description, location, project_type, software, source_type, title} = selectectedItemForEdit;
+        const { client, order, description, location, project_type, software, source_type, title} = selectectedItemForEdit;
 
         elAllInputs[1].value = client;
         elAllInputs[2].value = title;
         elAllInputs[3].value = location;
         elAllInputs[4].value = software;
         elAllInputs[5].value = description;
+        elAllInputs[6].value = order;
      
         elAllSelects[0].value = source_type;
         elAllSelects[1].value = project_type;        
@@ -376,9 +385,15 @@ const Project = () => {
                                 <label for="floatingPassword">Software</label>
                             </div>
 
+
                             <div class="form-floating">
                                 <input type="text" class="form-control" id="floatingInput" name='description' placeholder="Description" />
                                 <label for="floatingInput">Description</label>
+                            </div>
+
+                            <div class="form-floating">
+                                <input type="number" name='order' min={1} class="form-control" id="floatingInput"  placeholder="Description" />
+                                <label for="floatingInput">order</label>
                             </div>
 
                             <select class="form-select" aria-label="Default select example" name="source_type">
