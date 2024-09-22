@@ -256,13 +256,22 @@ label input, label select {
   }
 
 
-  .software-bt {
+  .software-btn {
     border: none;
     outline: none;
     border-radius: 10px;
     padding: 5px 10px;
     color: #1F4382;
     background-color: #c5cbd5;
+  }
+
+  .order-change-btn {
+    outline: none;
+    border: none;
+    color: #1F4382;
+    font-weight: 600;
+    background-color:#629cff;
+    border-radius: 0px 10px 10px 0px;
   }
 
 

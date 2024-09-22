@@ -26,6 +26,8 @@ const Project = () => {
     const [hideMainImg, setHideMainImg] = useState(true);
     const [loadingTitme, setLoadingTime] = useState(false)
     const [softwareBtns, setSoftwareBtns] = useState([])
+    const [valueSoftware, setValueSoftware] = useState('')
+    const [orderValue, setOrderValue] = useState('')
 
 
     useEffect(() => {
@@ -51,18 +53,13 @@ const Project = () => {
 
             const softwareBtns = await fetch('https://test.itpoint.uz/api/auto-suggestion/');
             const dataSoftwareBtns = await softwareBtns.json();
-            let arr = [];
+            let softwareArr = [];
             dataSoftwareBtns.map(item => {
-                arr.push(item.name);
+                softwareArr.push(item.name);
             })
-            setSoftwareBtns(arr);
+            setSoftwareBtns(softwareArr);
         })();
     }, []);
-
-    
-
-
-    
 
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -99,8 +96,6 @@ const Project = () => {
             formData.delete('project_type')
             formData.delete('source_type')
             formData.delete('description')
-            formData.delete('order')
-
 
 
                 setLoadingTime(true);            
@@ -224,14 +219,13 @@ const Project = () => {
         const elAllInputs = elForm.querySelectorAll('input');
         const elAllSelects = elForm.querySelectorAll('select');
 
-        const { client, order, description, location, project_type, software, source_type, title} = selectectedItemForEdit;
+        const { client, description, location, project_type, software, source_type, title} = selectectedItemForEdit;
 
         elAllInputs[1].value = client;
         elAllInputs[2].value = title;
         elAllInputs[3].value = location;
-        elAllInputs[4].value = software;
+        setValueSoftware(software)
         elAllInputs[5].value = description;
-        elAllInputs[6].value = order;
      
         elAllSelects[0].value = source_type;
         elAllSelects[1].value = project_type;        
@@ -288,12 +282,29 @@ const Project = () => {
         setElementsData(prev => prev + 1)
     }
 
-   
-    
+    const addValueSoftware = (evt) => {
+         setValueSoftware(prev => {
+            if(!(prev.includes(evt.target.textContent))){
+                return prev += '  ' + evt.target.textContent 
+            }
+            return prev
+         })
+    }
 
+    const changeOrder = (evt, id) => {
+        const orderNum = evt.target.parentElement.children[1].children[0].value;
+        console.log(orderNum, id);
+        
 
-    
-
+        fetch(`https://test.itpoint.uz/api/project/${id}/`,{
+            headers:{"Content-type": "application/json"},
+            method: "PATCH",
+            body: JSON.stringify({order: orderNum})
+          })
+          .then(response => response.json()) 
+          .then(data => window.location.reload())
+          .catch(console.error);
+    }
         return ( 
          <>
             <section className='career' style={{display: isActive == 'add' ? 'block' : 'none' }}>
@@ -314,10 +325,7 @@ const Project = () => {
                     </button>
                     {
                         data.map((item, idx) => {
-                            const { cropped_photo, title, location, software, client, url, project_type, source_type, description, id} = item;
-
-                            
-                       
+                            const { cropped_photo, order, title, location, software, client, url, project_type, source_type, description, id} = item;
                             return (
                                     <div className='career__item project-career__item' key={idx}>
                                         <img src={edit} alt="" className='edit-icon' onClick={() => {setIsActive('back'); setType(prev => prev = 'edit-item');handleAllImages(id); setFindId(id);handleEdit(id)}}/>
@@ -326,6 +334,14 @@ const Project = () => {
                                         <img className='project__image' src={cropped_photo} alt="" onClick={() => {setIsOpenModal('openImages'); handleAllImages(id)}  }/>
                                      
                                         <div>
+                                            <div className='d-flex mb-3' style={{height: '60px'}}>
+                                                <p className='me-3'>{ order }</p>
+                                                <div class="form-floating" style={{width: '150px'}}>
+                                                    <input type="number" name='order' min={1} class="form-control" id="floatingInput"  placeholder="Description" />
+                                                    <label for="floatingInput">order</label>
+                                                </div>
+                                                <button className='order-change-btn' type='button' onClick={(evt) => changeOrder(evt, id)}>change</button>
+                                            </div>
                                             <p><span>Location: </span>{location}</p>
                                             <p><span>Client: </span>{client}</p>
                                             <p><span>Title: </span>{title}</p>
@@ -397,16 +413,16 @@ const Project = () => {
                             </div>
 
                             <div class="form-floating">
-                                <input type="text" name='software' readOnly class="form-control"  id="floatingPassword" placeholder="Software" />
+                                <input type="text" name='software' onChange={(evt)=>setValueSoftware(evt.target.value)} value={valueSoftware} class="form-control"  id="floatingPassword" placeholder="Software" />
                                 <label for="floatingPassword">Software</label>
                             </div>
 
-                            <div className='d-flex flex-wrap gap-2'>
+                            <div className='d-flex flex-wrap gap-2 mb-2'>
                                {
                                 softwareBtns.map(item => {
                                   return  (
                                                 <>
-                                                    <button className='software-bt'>
+                                                    <button type='button' className='software-btn' onClick={(evt) => addValueSoftware(evt)} >
                                                         { item }
                                                     </button>
                                                 </>
@@ -420,10 +436,7 @@ const Project = () => {
                                 <label for="floatingInput">Description</label>
                             </div>
 
-                            <div class="form-floating">
-                                <input type="number" name='order' min={1} class="form-control" id="floatingInput"  placeholder="Description" />
-                                <label for="floatingInput">order</label>
-                            </div>
+                           
 
                             <select class="form-select" aria-label="Default select example" name="source_type">
                                 <option value="photo" defaultValue={'photo'}>photo</option>
@@ -433,7 +446,6 @@ const Project = () => {
                             <select class="form-select" aria-label="Default select example" name="project_type">
                                     <option value="exterior" defaultValue={'exterior'}>exterior</option>
                                     <option value="interior">interior</option>
-                                    <option value="archviz">archviz</option>
                             </select>                        
                         </div>
 
