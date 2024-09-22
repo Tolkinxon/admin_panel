@@ -11,7 +11,7 @@ const Project = () => {
     const [elementsAllImages, setElementsAllImages] = useState([]);
 
     const [allData, setAllData] = useState([]);
-    const [archvizData, setArchvizData] = useState([]);
+    // const [archvizData, setArchvizData] = useState([]);
     const [exteriorData, setExteriorData] = useState([]);
     const [interiorData, setInteriorData] = useState([]);
 
@@ -25,6 +25,7 @@ const Project = () => {
     const [type, setType] = useState('')
     const [hideMainImg, setHideMainImg] = useState(true);
     const [loadingTitme, setLoadingTime] = useState(false)
+    const [softwareBtns, setSoftwareBtns] = useState([])
 
 
     useEffect(() => {
@@ -44,11 +45,24 @@ const Project = () => {
             const dataExterior = await exteriorResponse.json();
             setExteriorData(dataExterior)
 
-            const archvizResponse = await fetch('https://test.itpoint.uz/api/project/?type=archviz');
-            const dataArchviz = await archvizResponse.json();
-            setArchvizData(dataArchviz)
+            // const archvizResponse = await fetch('https://test.itpoint.uz/api/project/?type=archviz');
+            // const dataArchviz = await archvizResponse.json();
+            // setArchvizData(dataArchviz)
+
+            const softwareBtns = await fetch('https://test.itpoint.uz/api/auto-suggestion/');
+            const dataSoftwareBtns = await softwareBtns.json();
+            let arr = [];
+            dataSoftwareBtns.map(item => {
+                arr.push(item.name);
+            })
+            setSoftwareBtns(arr);
         })();
     }, []);
+
+    
+
+
+    
 
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -274,6 +288,8 @@ const Project = () => {
         setElementsData(prev => prev + 1)
     }
 
+   
+    
 
 
     
@@ -288,7 +304,7 @@ const Project = () => {
 
             <button className={`category-button ${isActiveCategory == 'exterior' ? 'category-active':''}`} onClick={() => {setData(exteriorData); setIsActiveCategory('exterior')}}>exterior</button>
 
-            <button className={`category-button ${isActiveCategory == 'archviz' ? 'category-active':''}`} onClick={() => {setData(archvizData); setIsActiveCategory('archviz')}}>archviz</button>
+            {/* <button className={`category-button ${isActiveCategory == 'archviz' ? 'category-active':''}`} onClick={() => {setData(archvizData); setIsActiveCategory('archviz')}}>archviz</button> */}
                     
                 
                 <div className='container'>
@@ -381,10 +397,23 @@ const Project = () => {
                             </div>
 
                             <div class="form-floating">
-                                <input type="text" name='software' class="form-control"  id="floatingPassword" placeholder="Software" />
+                                <input type="text" name='software' readOnly class="form-control"  id="floatingPassword" placeholder="Software" />
                                 <label for="floatingPassword">Software</label>
                             </div>
 
+                            <div className='d-flex flex-wrap gap-2'>
+                               {
+                                softwareBtns.map(item => {
+                                  return  (
+                                                <>
+                                                    <button className='software-bt'>
+                                                        { item }
+                                                    </button>
+                                                </>
+                                    )
+                                })
+                               }
+                            </div>
 
                             <div class="form-floating">
                                 <input type="text" class="form-control" id="floatingInput" name='description' placeholder="Description" />

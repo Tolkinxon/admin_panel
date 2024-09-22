@@ -256,6 +256,15 @@ label input, label select {
   }
 
 
+  .software-bt {
+    border: none;
+    outline: none;
+    border-radius: 10px;
+    padding: 5px 10px;
+    color: #1F4382;
+    background-color: #c5cbd5;
+  }
+
 
 
 
